@@ -3,6 +3,7 @@ package it.unibo.briscoola.model.api.player;
 import java.util.List;
 
 import it.unibo.briscoola.model.api.card.Card;
+import it.unibo.briscoola.model.api.game.RoundState;
 
 public interface Player {
 
@@ -10,7 +11,7 @@ public interface Player {
      * Plays a card from players hand
      * @return played card
      */
-    Card playCard();
+    Card playCard(RoundState state);
 
     /**
      * Plays the card at the given index from the human player's hand

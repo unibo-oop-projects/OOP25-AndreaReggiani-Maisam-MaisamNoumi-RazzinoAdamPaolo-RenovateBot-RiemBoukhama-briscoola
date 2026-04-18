@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.briscoola.model.api.card.Card;
+import it.unibo.briscoola.model.api.game.RoundState;
 import it.unibo.briscoola.model.api.player.Player;
 
 public class PlayerImpl implements Player {
@@ -20,7 +21,7 @@ public class PlayerImpl implements Player {
     
 
     @Override
-    public Card playCard() {
+    public Card playCard(RoundState state) {
         return this.hand.remove(0);
     }
 

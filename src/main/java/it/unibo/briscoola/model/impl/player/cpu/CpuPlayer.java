@@ -1,6 +1,7 @@
 package it.unibo.briscoola.model.impl.player.cpu;
 
 import it.unibo.briscoola.model.api.card.Card;
+import it.unibo.briscoola.model.api.game.RoundState;
 import it.unibo.briscoola.model.api.player.PlayStrategy;
 import it.unibo.briscoola.model.impl.player.PlayerImpl;
 
@@ -24,8 +25,8 @@ public final class CpuPlayer extends PlayerImpl {
     }
 
     @Override
-    public Card playCard() {
-        final int index = strategy.playCard(this.getHand());
+    public Card playCard(RoundState state) {
+        final int index = strategy.cardIndex(this.getHand(), state);
         return super.playCard(index);
     }
 

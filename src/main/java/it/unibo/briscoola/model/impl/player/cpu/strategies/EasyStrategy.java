@@ -1,6 +1,7 @@
 package it.unibo.briscoola.model.impl.player.cpu.strategies;
 
 import it.unibo.briscoola.model.api.card.Card;
+import it.unibo.briscoola.model.api.game.RoundState;
 import it.unibo.briscoola.model.api.player.PlayStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Strategy of the CPU for choosing the card to be played in Easy Difficulty
+ * Strategy of the CPU for choosing the card to be played in Easy Difficulty.
+ * Points to use the highest powered cards last.
  */
 public class EasyStrategy implements PlayStrategy {
 
@@ -20,9 +22,9 @@ public class EasyStrategy implements PlayStrategy {
      * {@inheritDoc}
      */
     @Override
-    public int cardIndex(final List<Card> hand) {
+    public int cardIndex(final List<Card> hand, RoundState state) {
         try {
-            return hand.indexOf(hand.stream().max(Comparator.comparingInt(Card::getCardPower)).orElseThrow());
+            return hand.indexOf(hand.stream().min(Comparator.comparingInt(Card::getCardPower)).orElseThrow());
         } catch (final NoSuchElementException e) {
             logger.error("Error during the CPU playCard method -> {}", e.getMessage(), e);
             return -1;

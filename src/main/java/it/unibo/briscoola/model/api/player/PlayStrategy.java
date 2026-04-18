@@ -1,6 +1,7 @@
 package it.unibo.briscoola.model.api.player;
 
 import it.unibo.briscoola.model.api.card.Card;
+import it.unibo.briscoola.model.api.game.RoundState;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface PlayStrategy {
      * @param hand cards in hand of the CPU
      * @return the card to be played
      */
-    int cardIndex(List<Card> hand);
+    int cardIndex(List<Card> hand, RoundState state);
 }
