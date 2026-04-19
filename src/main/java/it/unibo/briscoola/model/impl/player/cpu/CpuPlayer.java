@@ -5,6 +5,8 @@ import it.unibo.briscoola.model.api.game.RoundState;
 import it.unibo.briscoola.model.api.player.PlayStrategy;
 import it.unibo.briscoola.model.impl.player.PlayerImpl;
 
+import java.util.function.Consumer;
+
 /**
  * Unextendable class that represent a singular CpuPlayer.
  * Extends @link{PlayerImpl}
@@ -25,7 +27,7 @@ public final class CpuPlayer extends PlayerImpl {
     }
 
     @Override
-    public Card playCard(RoundState state) {
+    public Card playCard(RoundState state, Consumer<Card> callback) {
         final int index = strategy.cardIndex(this.getHand(), state);
         return super.playCard(index);
     }
