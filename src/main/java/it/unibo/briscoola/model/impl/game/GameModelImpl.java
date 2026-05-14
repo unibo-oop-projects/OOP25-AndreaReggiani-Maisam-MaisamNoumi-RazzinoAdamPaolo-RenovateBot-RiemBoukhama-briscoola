@@ -51,26 +51,35 @@ public class GameModelImpl implements GameModel{
      */
     @Override
     public void dealInitialCards() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'dealInitialCards'");
+        for(int i = 0; i < 3; i++){
+            for(final Player p : players){
+                p.receiveCard(deck.draw().orElseThrow());
+            }
+        }
     }
 
     /** 
      * {@inheritDoc}
      */
     @Override
-    public void drawAfterTrick(Player winner, Player loser) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drawAfterTrick'");
+    public void drawAfterTrick(final Player winner, final Player loser){
+        final Optional<Card> firstCard = this.deck.draw();
+        if(firstCard.isPresent()){
+            winner.receiveCard(firstCard.get());
+        }
+
+        final Optional<Card> secondCard = this.deck.draw();
+        if(secondCard.isPresent()){
+            loser.receiveCard(secondCard.get());
+        }
     }
 
     /** 
      * {@inheritDoc}
      */
     @Override
-    public Card playCard(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'playCard'");
+    public Card playCard(final int index) {
+        return this.players.get(0).playCard(index);
     }
 
     /** 
@@ -78,7 +87,11 @@ public class GameModelImpl implements GameModel{
      */
     @Override
     public boolean isGameOver() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isGameOver'");
+        for (final Player p : this.players) {
+            if (!p.getHand().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

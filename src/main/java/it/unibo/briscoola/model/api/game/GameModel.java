@@ -8,31 +8,31 @@ import it.unibo.briscoola.model.api.player.Player;
 public interface GameModel {
 
     /**
-     * start the match giving 3 cards to each player
+     * Starts the match, giving 3 cards to each player.
      */
     void startMatch();
     
     /**
-     * @return th Card defined as Briscola, to choose se Seed 
+     * @return the Card defined as Briscola, used to determine the dominant seed.
      */
     Optional<Card> getBriscolaSeed();
 
      /**
-      * checks if the game is ended, 
-      * that happens when 
-      * all the players used all they cards.
-      * When players have the Hand empty.
+      * Checks if the game is over.
+      * The game ends when all players have used all their cards
+      * and their hands are empty.
+      * @return true if the game is over, false otherwise.
       */
     boolean isGameOver();
 
     /**
-     * Picks the first card from the deck -> that will be the briscola
-     * and put it at the bottom of the deck.
+     * Picks the first card from the deck as the Briscola,
+     * and puts it at the bottom of the deck.
      */
     void assignBriscola();
 
     /**
-     * At first, deals 3 cards to each player, alternating between them
+     * Deals 3 cards to each player, alternating between them.
      */
     void dealInitialCards();
 

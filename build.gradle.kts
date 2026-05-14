@@ -49,7 +49,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("it.unibo.briscola.BriscOOla")
+    mainClass.set("it.unibo.briscoola.BriscOOla")
 }
 
 tasks.withType<Test>().configureEach {
