@@ -6,6 +6,7 @@ import java.util.Optional;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.deck.Deck;
 import it.unibo.briscoola.model.api.game.GameModel;
+import it.unibo.briscoola.model.api.game.RoundManager;
 import it.unibo.briscoola.model.api.player.Player;
 
 public class GameModelImpl implements GameModel{
@@ -13,11 +14,12 @@ public class GameModelImpl implements GameModel{
     private final Deck<Card> deck;
     private final List<Player> players;
     private Card briscolaCard;
+    private final RoundManager roundManager;
 
-    public GameModelImpl(final List<Player> players, final Deck<Card> deck) {
+    public GameModelImpl(final List<Player> players, final Deck<Card> deck, final RoundManager roundManager) {
         this.players = players;
         this.deck = deck;
-        this.assignBriscola();
+        this.roundManager = roundManager;
     }
 
     /** 
@@ -27,7 +29,7 @@ public class GameModelImpl implements GameModel{
     public void startMatch() {
         this.assignBriscola();
         this.dealInitialCards();
-         
+        this.roundManager.startRound(this.players);
     }
 
     /** 
