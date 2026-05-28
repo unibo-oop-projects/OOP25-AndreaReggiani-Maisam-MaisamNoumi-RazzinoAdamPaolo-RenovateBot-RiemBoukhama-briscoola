@@ -75,8 +75,8 @@ public class GameModelImpl implements GameModel{
      * {@inheritDoc}
      */
     @Override
-    public Card playCard(final int index) {
-        return this.players.get(0).playCard(index);
+    public Card playCard(final Player player, final int index) {
+        return player.playCard(index);
     }
 
     /** 
