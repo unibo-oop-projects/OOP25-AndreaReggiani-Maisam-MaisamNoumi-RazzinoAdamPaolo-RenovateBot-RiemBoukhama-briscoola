@@ -1,5 +1,6 @@
 package it.unibo.briscoola.model.api.game;
 
+import java.util.List;
 import java.util.Optional;
 
 import it.unibo.briscoola.model.api.card.Card;
@@ -42,7 +43,7 @@ public interface GameModel {
      * @param winner the player who won the trick
      * @param loser the player who lost the trick
      */
-    void drawAfterTrick(Player winner, Player loser);
+    void drawAfterTrick(List<Player> orderedPlayers);
 
     /**
      * Plays the card at the given index (from the human player's hand)

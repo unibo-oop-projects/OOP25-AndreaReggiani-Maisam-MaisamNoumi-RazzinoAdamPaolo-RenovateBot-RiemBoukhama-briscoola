@@ -62,15 +62,12 @@ public class GameModelImpl implements GameModel{
      * {@inheritDoc}
      */
     @Override
-    public void drawAfterTrick(final Player winner, final Player loser){
-        final Optional<Card> firstCard = this.deck.draw();
-        if(firstCard.isPresent()){
-            winner.receiveCard(firstCard.get());
-        }
-
-        final Optional<Card> secondCard = this.deck.draw();
-        if(secondCard.isPresent()){
-            loser.receiveCard(secondCard.get());
+    public void drawAfterTrick(final List<Player> orderedPlayers){
+        for(final Player player: orderedPlayers){
+            final Optional<Card> card = this.deck.draw();
+            if(card.isPresent()){
+                player.receiveCard(card.get());
+            }
         }
     }
 
