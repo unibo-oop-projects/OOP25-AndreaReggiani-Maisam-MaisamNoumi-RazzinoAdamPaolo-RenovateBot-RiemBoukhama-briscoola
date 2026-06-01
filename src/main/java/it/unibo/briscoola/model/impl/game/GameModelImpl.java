@@ -6,6 +6,7 @@ import java.util.Optional;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.deck.Deck;
 import it.unibo.briscoola.model.api.game.GameModel;
+import it.unibo.briscoola.model.api.game.RoundManager;
 import it.unibo.briscoola.model.api.player.Player;
 
 public class GameModelImpl implements GameModel{
@@ -13,11 +14,12 @@ public class GameModelImpl implements GameModel{
     private final Deck<Card> deck;
     private final List<Player> players;
     private Card briscolaCard;
+    private final RoundManager roundManager;
 
-    public GameModelImpl(final List<Player> players, final Deck<Card> deck) {
+    public GameModelImpl(final List<Player> players, final Deck<Card> deck, final RoundManager roundManager) {
         this.players = players;
         this.deck = deck;
-        this.assignBriscola();
+        this.roundManager = roundManager;
     }
 
     /** 
@@ -27,7 +29,7 @@ public class GameModelImpl implements GameModel{
     public void startMatch() {
         this.assignBriscola();
         this.dealInitialCards();
-         
+        this.roundManager.startRound(this.players);
     }
 
     /** 
@@ -62,15 +64,12 @@ public class GameModelImpl implements GameModel{
      * {@inheritDoc}
      */
     @Override
-    public void drawAfterTrick(final Player winner, final Player loser){
-        final Optional<Card> firstCard = this.deck.draw();
-        if(firstCard.isPresent()){
-            winner.receiveCard(firstCard.get());
-        }
-
-        final Optional<Card> secondCard = this.deck.draw();
-        if(secondCard.isPresent()){
-            loser.receiveCard(secondCard.get());
+    public void drawAfterTrick(final List<Player> orderedPlayers){
+        for(final Player player: orderedPlayers){
+            final Optional<Card> card = this.deck.draw();
+            if(card.isPresent()){
+                player.receiveCard(card.get());
+            }
         }
     }
 
@@ -78,8 +77,8 @@ public class GameModelImpl implements GameModel{
      * {@inheritDoc}
      */
     @Override
-    public Card playCard(final int index) {
-        return this.players.get(0).playCard(index);
+    public Card playCard(final Player player, final int index) {
+        return player.playCard(index);
     }
 
     /** 

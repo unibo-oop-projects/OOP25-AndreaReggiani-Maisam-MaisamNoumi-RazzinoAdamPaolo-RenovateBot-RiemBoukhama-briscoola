@@ -1,5 +1,6 @@
 package it.unibo.briscoola.model.api.game;
 
+import java.util.List;
 import java.util.Optional;
 
 import it.unibo.briscoola.model.api.card.Card;
@@ -37,17 +38,18 @@ public interface GameModel {
     void dealInitialCards();
 
     /**
-     * After a trick, the winner draws first, then the loser. 
-     * If the deck is empty, nobody will draw.
-     * @param winner the player who won the trick
-     * @param loser the player who lost the trick
+     * After a trick, players draw cards following the given order.
+     * If the deck becomes empty, remaining players will not draw.
+     * 
+     * @param orderedPlayers refers to the order of players
      */
-    void drawAfterTrick(Player winner, Player loser);
+    void drawAfterTrick(List<Player> orderedPlayers);
 
     /**
-     * Plays the card at the given index (from the human player's hand)
-     * @param index is the position of the card in hand (0, 1 or 2)
+     * Plays the card at the given index from the given player's hand.
+     * @param player refers to the player who is playing the card
+     * @param index is the position of the card in hand
      * @return the played card
      */
-    Card playCard(int index);
+    Card playCard(Player player, int index);
 }
