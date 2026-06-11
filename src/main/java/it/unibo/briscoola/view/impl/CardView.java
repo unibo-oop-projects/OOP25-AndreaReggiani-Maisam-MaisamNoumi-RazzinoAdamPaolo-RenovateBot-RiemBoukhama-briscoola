@@ -24,7 +24,8 @@ public class CardView extends JPanel {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(100, 150));
         setBackground(Color.WHITE);
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        setOpaque(false);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 
         cardLabel = new JLabel();
         cardLabel.setHorizontalAlignment(SwingConstants.CENTER);
