@@ -13,6 +13,11 @@ public interface View {
     void initGame();
 
     /**
+     * Updates the players hand
+     */
+    void updateHand();
+
+    /**
      * Updates the card count in a player's deck
      * @param cardsCount
      * @param player
