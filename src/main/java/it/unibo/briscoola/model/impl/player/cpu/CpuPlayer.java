@@ -2,9 +2,11 @@ package it.unibo.briscoola.model.impl.player.cpu;
 
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.PlayStrategy;
+import it.unibo.briscoola.model.api.player.Player;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 import it.unibo.briscoola.model.impl.player.PlayerImpl;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -26,11 +28,19 @@ public final class CpuPlayer extends PlayerImpl {
         this.strategy = strategy;
     }
 
+    public CpuPlayer(final int id, final int points, final List<Card> hand, final PlayStrategy strategy){
+        super(id, points, hand);
+        this.strategy = strategy;
+    }
+
+    public CpuPlayer copy(){
+        return new CpuPlayer(this.getId(), this.getPoints(), this.getHand(), this.strategy);
+    }
+
     @Override
-    public Card playCard(RoundStateImpl state, Consumer<Card> callback) {
+    public Card playCard(RoundStateImpl state) {
         final int index = strategy.cardIndex(this.getHand(), state);
-        callback.accept(this.getHand().get(index));
-        return super.playCard(index);
+        return this.playCard(index);
     }
 
 }

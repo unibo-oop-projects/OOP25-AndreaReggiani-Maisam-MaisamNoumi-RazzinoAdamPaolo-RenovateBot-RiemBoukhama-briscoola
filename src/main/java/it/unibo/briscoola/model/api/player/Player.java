@@ -12,7 +12,7 @@ public interface Player {
      * Plays a card from players hand
      * @return played card
      */
-    Card playCard(RoundStateImpl state, Consumer<Card> callback);
+    Card playCard(RoundStateImpl state);
 
     /**
      * Plays the card at the given index from the human player's hand
@@ -26,6 +26,13 @@ public interface Player {
      * @param card card picked up from the deck
      */
     void receiveCard(Card card);
+
+    /**
+     * Removes the specified card from the hand.
+     *
+     * @param card to remove from the hand
+     */
+    void removeCard(Card card);
 
     /**
      * @return list of cards in player's hand
@@ -47,4 +54,10 @@ public interface Player {
      * @return player's current points
      */
     int getPoints();
+
+    /**
+     *
+     * @return a copy of the instanced {@link Player}
+     */
+    Player copy();
 }

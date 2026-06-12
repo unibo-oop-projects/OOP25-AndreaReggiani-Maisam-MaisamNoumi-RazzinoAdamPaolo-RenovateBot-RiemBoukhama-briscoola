@@ -19,10 +19,16 @@ public class PlayerImpl implements Player {
         this.points = 0;
         this.hand = new ArrayList<>();
     }
+
+    public PlayerImpl(int id, int points, List<Card> hand){
+        this.id = id;
+        this.points = points;
+        this.hand = new ArrayList<>(hand);
+    }
     
 
     @Override
-    public Card playCard(RoundStateImpl state, Consumer<Card> callback) {
+    public Card playCard(RoundStateImpl state) {
         return this.hand.removeFirst();
     }
 
@@ -54,6 +60,11 @@ public class PlayerImpl implements Player {
     @Override
      public int getPoints(){
         return this.points;
+    }
+
+    @Override
+    public PlayerImpl copy(){
+        return new PlayerImpl(this.id, this.points, this.hand);
     }
 
 }

@@ -7,12 +7,11 @@ import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.deck.Deck;
 import it.unibo.briscoola.model.api.game.GameFactory;
 import it.unibo.briscoola.model.api.game.GameModel;
-import it.unibo.briscoola.model.api.game.RoundManager;
 import it.unibo.briscoola.model.api.player.Player;
 import it.unibo.briscoola.model.impl.deck.DeckImpl;
 
 public class GameFactoryImpl implements GameFactory {
-
+    
     /**
      * {@inheritDoc}
      */
@@ -20,9 +19,8 @@ public class GameFactoryImpl implements GameFactory {
     public GameModel createStandardGame(List<Player> players) {
         Deck<Card> deck= new DeckImpl();
         CardSeed briscolaSeed = deck.getBriscolaSeed().orElseThrow().getCardSeed();
-        RoundManager roundManager = new RoundManagerImpl(briscolaSeed);
 
-        return new GameModelImpl(players,deck, roundManager);
+        return new GameModelImpl(players,deck);
     }
 
     
