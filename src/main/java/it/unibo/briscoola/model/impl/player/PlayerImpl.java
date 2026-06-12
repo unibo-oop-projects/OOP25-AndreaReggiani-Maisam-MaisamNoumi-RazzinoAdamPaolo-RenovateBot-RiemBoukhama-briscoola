@@ -22,10 +22,11 @@ public class PlayerImpl implements Player {
         this.pile = new ArrayList<>();
     }
 
-    public PlayerImpl(int id, int points, List<Card> hand){
+    public PlayerImpl(int id, int points, List<Card> hand, List<Card> pile){
         this.id = id;
         this.points = points;
         this.hand = new ArrayList<>(hand);
+        this.pile = new ArrayList<>(pile);
     }
     
 
@@ -93,7 +94,7 @@ public class PlayerImpl implements Player {
 
     @Override
     public PlayerImpl copy(){
-        return new PlayerImpl(this.id, this.points, this.hand);
+        return new PlayerImpl(this.id, this.points, this.hand, this.pile);
     }
 
 }

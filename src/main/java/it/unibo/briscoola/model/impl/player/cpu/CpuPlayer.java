@@ -28,13 +28,13 @@ public final class CpuPlayer extends PlayerImpl {
         this.strategy = strategy;
     }
 
-    public CpuPlayer(final int id, final int points, final List<Card> hand, final PlayStrategy strategy){
-        super(id, points, hand);
+    public CpuPlayer(final int id, final int points, final List<Card> hand, final List<Card> pile,final PlayStrategy strategy){
+        super(id, points, hand, pile);
         this.strategy = strategy;
     }
 
     public CpuPlayer copy(){
-        return new CpuPlayer(this.getId(), this.getPoints(), this.getHand(), this.strategy);
+        return new CpuPlayer(this.getId(), this.getPoints(), this.getHand(), this.getPile(), this.strategy);
     }
 
     @Override
