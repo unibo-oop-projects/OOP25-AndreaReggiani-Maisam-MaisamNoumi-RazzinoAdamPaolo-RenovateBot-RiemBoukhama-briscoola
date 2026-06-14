@@ -1,5 +1,6 @@
 package it.unibo.briscoola.model.impl.game;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +20,18 @@ public class GameModelImpl implements GameModel{
     private final RoundManager roundManager;
 
     public GameModelImpl(final List<Player> players, final Deck<Card> deck) {
-        this.players = players;
+        this.players = new ArrayList<>(players);
         this.deck = deck;
+        this.init();
+        this.roundManager = new RoundManagerImpl(briscolaCard.getCardSeed());
+    }
+
+    /**
+     * Initializes the table state.
+     */
+    private void init(){
         this.assignBriscola();
         this.dealInitialCards();
-        this.roundManager = new RoundManagerImpl(this.getBriscolaSeed().orElseThrow(()->new IllegalStateException("Briscola Seed Cannot be null")));
     }
 
     /** 
