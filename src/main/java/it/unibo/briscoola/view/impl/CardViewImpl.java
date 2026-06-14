@@ -12,7 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class CardViewImpl extends JPanel {
+import it.unibo.briscoola.view.api.CardView;
+
+public class CardViewImpl extends JPanel implements CardView {
 
     private final JLabel cardLabel;
 
@@ -30,7 +32,7 @@ public class CardViewImpl extends JPanel {
         add(cardLabel, BorderLayout.CENTER);
     }
 
-    
+
     public void renderCard(String seed, String value) {
         
         if (seed == null || value == null) {
