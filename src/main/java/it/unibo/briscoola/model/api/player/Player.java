@@ -1,7 +1,6 @@
 package it.unibo.briscoola.model.api.player;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
@@ -12,7 +11,7 @@ public interface Player {
      * Plays a card from players hand
      * @return played card
      */
-    Card playCard(RoundStateImpl state, Consumer<Card> callback);
+    Card playCard(RoundStateImpl state);
 
     /**
      * Plays the card at the given index from the human player's hand
@@ -28,15 +27,32 @@ public interface Player {
     void receiveCard(Card card);
 
     /**
+     * Removes the specified card from the hand.
+     *
+     * @param card to remove from the hand
+     */
+    void removeCard(Card card);
+
+    /**
      * @return list of cards in player's hand
      */
     List<Card> getHand();
 
     /**
-     * Adds to the player's total points at the end of each round
-     * @param points points to add
+     * adds a taken card to the players pile
+     * @param card the card taken in the round
      */
-    void addPoints(int points);
+    void addtoPile(Card card);
+
+    /**
+     * @return the pile 
+     */
+    List<Card> getPile();
+
+    /**
+     * empties the players pile
+     */
+    void clearPile();
 
     /**
      * @return player's identifier
@@ -47,4 +63,10 @@ public interface Player {
      * @return player's current points
      */
     int getPoints();
+
+    /**
+     *
+     * @return a copy of the instanced {@link Player}
+     */
+    Player copy();
 }

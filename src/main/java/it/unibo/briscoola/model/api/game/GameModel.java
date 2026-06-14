@@ -3,8 +3,11 @@ package it.unibo.briscoola.model.api.game;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.briscoola.model.api.attributes.CardSeed;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.Player;
+import it.unibo.briscoola.model.impl.game.RoundStateImpl;
+import it.unibo.briscoola.model.impl.game.RoundWinner;
 
 public interface GameModel {
 
@@ -14,9 +17,9 @@ public interface GameModel {
     void startMatch();
     
     /**
-     * @return the Card defined as Briscola, used to determine the dominant seed.
+     * @return the CardSeed defined as Briscola, used to determine the dominant seed.
      */
-    Optional<Card> getBriscolaSeed();
+    Optional<CardSeed> getBriscolaSeed();
 
      /**
       * Checks if the game is over.
@@ -52,4 +55,46 @@ public interface GameModel {
      * @return the played card
      */
     Card playCard(Player player, int index);
+
+    /**
+     * Method to get the player in charge of the turn.
+     * @return the {@link Player} in charge of the turn
+     */
+    Player getCurrentPlayer();
+
+    /**
+     * Boolean indicating if the round is completed or not.
+     *
+     * @return true if the round is completed, false otherwise.
+     */
+    boolean isRoundOver();
+
+    /**
+     * Rotates the {@link Player}s {@link List} so that the startingPlayer plays first.
+     *
+     * @param startingPlayer {@link Player} winner of last round
+     */
+    void computeNextTurnOrder(Player startingPlayer);
+
+    /**
+     * Handles the closure of a round and the decision of a winner.
+     *
+     * @return the {@link RoundWinner} of the latest round
+     */
+    RoundWinner endRound();
+
+    /**
+     * Plays the {@link Card} chosen by the {@link Player}.
+     *
+     * @param player that chose the card
+     * @param card chosen by the player
+     */
+    void makeMove(Player player, Card card);
+
+    /**
+     * Returns the state of the table in an exact moment.
+     *
+     * @return the current {@link RoundStateImpl}
+     */
+    RoundStateImpl getCurrentRoundState();
 }

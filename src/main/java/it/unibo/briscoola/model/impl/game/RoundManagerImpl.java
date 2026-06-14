@@ -1,6 +1,7 @@
 package it.unibo.briscoola.model.impl.game;
 
 import it.unibo.briscoola.model.api.attributes.CardSeed;
+import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.game.RoundManager;
 import it.unibo.briscoola.model.api.player.Player;
 import org.slf4j.Logger;
@@ -22,37 +23,51 @@ public class RoundManagerImpl implements RoundManager {
         this.briscola = briscola;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startRound(List<Player> turnOrder){
         this.playersList = List.copyOf(turnOrder);
     }
 
+
     /**
      * {@inheritDoc}
-     *
      */
     @Override
-    public Boolean nextPlayerSwitch(){
-        if(currentPlayerIndex < playersList.size()){
-            requestCard(playersList.get(currentPlayerIndex));
-            currentPlayerIndex++;
+    public void playTurn(Player player, Card card) {
+        if(this.table.isEmpty()){
+            this.leadSeed = card.getCardSeed();
         }
-        return true;
+        this.table.add(new RoundPlay(player, card));
+
+        this.currentPlayerIndex++;
+
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void requestCard(Player player) {
-        RoundStateImpl state = new RoundStateImpl(this.table, this.briscola, Optional.ofNullable(this.leadSeed));
-        player.playCard(state, card -> {
-            if(table.isEmpty()){
-                this.leadSeed = card.getCardSeed();
-            }
-            table.add(new RoundPlay(player, card));
-        });
+    public Player getCurrentPlayer(){
+        return this.playersList.get(currentPlayerIndex);
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isRoundOver(){
+        return currentPlayerIndex >= playersList.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RoundStateImpl getRoundState(){
+        return new RoundStateImpl(this.table, this.briscola, Optional.ofNullable(this.leadSeed));
     }
 
     /**

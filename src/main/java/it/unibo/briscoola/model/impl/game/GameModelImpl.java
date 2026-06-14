@@ -1,8 +1,11 @@
 package it.unibo.briscoola.model.impl.game;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.briscoola.model.api.attributes.CardSeed;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.deck.Deck;
 import it.unibo.briscoola.model.api.game.GameModel;
@@ -16,10 +19,19 @@ public class GameModelImpl implements GameModel{
     private Card briscolaCard;
     private final RoundManager roundManager;
 
-    public GameModelImpl(final List<Player> players, final Deck<Card> deck, final RoundManager roundManager) {
-        this.players = players;
+    public GameModelImpl(final List<Player> players, final Deck<Card> deck) {
+        this.players = new ArrayList<>(players);
         this.deck = deck;
-        this.roundManager = roundManager;
+        this.init();
+        this.roundManager = new RoundManagerImpl(briscolaCard.getCardSeed());
+    }
+
+    /**
+     * Initializes the table state.
+     */
+    private void init(){
+        this.assignBriscola();
+        this.dealInitialCards();
     }
 
     /** 
@@ -27,8 +39,7 @@ public class GameModelImpl implements GameModel{
      */
     @Override
     public void startMatch() {
-        this.assignBriscola();
-        this.dealInitialCards();
+
         this.roundManager.startRound(this.players);
     }
 
@@ -36,8 +47,8 @@ public class GameModelImpl implements GameModel{
      * {@inheritDoc}
      */
     @Override
-    public Optional<Card> getBriscolaSeed() {
-        return Optional.ofNullable(this.briscolaCard);
+    public Optional<CardSeed> getBriscolaSeed() {
+        return Optional.ofNullable(this.briscolaCard.getCardSeed());
     }
 
     /** 
@@ -90,5 +101,62 @@ public class GameModelImpl implements GameModel{
             }
         }
         return true;
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public Player getCurrentPlayer(){
+        return this.roundManager.getCurrentPlayer();
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public boolean isRoundOver(){
+        return this.roundManager.isRoundOver();
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public void computeNextTurnOrder(Player startingPlayer){
+        int index = this.players.indexOf(startingPlayer);
+        Collections.rotate(this.players, index*(-1));
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public RoundWinner endRound(){
+        RoundWinner winner = this.roundManager.determineWinner();
+        winner.player().addPoints(winner.points());
+        computeNextTurnOrder(winner.player());
+        this.drawAfterTrick(this.players);
+        if(!this.isGameOver()){
+            this.roundManager.startRound(this.players);
+        }
+        return winner;
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public void makeMove(Player player, Card card){
+        player.getHand().remove(card);
+        this.roundManager.playTurn(player, card);
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public RoundStateImpl getCurrentRoundState(){
+        return this.roundManager.getRoundState();
     }
 }

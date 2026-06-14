@@ -1,7 +1,9 @@
 package it.unibo.briscoola.model.api.game;
 
+import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.Player;
 import it.unibo.briscoola.model.impl.game.RoundPlay;
+import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 import it.unibo.briscoola.model.impl.game.RoundWinner;
 
 import java.util.List;
@@ -16,20 +18,35 @@ public interface RoundManager {
      */
     void startRound(List<Player> turnOrder);
 
-    /**
-     * Rotates between the players in game.
-     *
-     * @return true if the round completed successfully, false otherwise
-     *
-     */
-    Boolean nextPlayerSwitch();
 
     /**
-     * Sends a request to the given player and puts the card on the table.
+     * Handles the happening of a turn of a player and the chosen card.
      *
-     * @param player the player who is being asked to play a card
+     * @param card of type {@link Card} chosen by the player
+     * @param player of type {@link Player} in charge of the turn
      */
-    void requestCard(Player player);
+    void playTurn(Player player, Card card);
+
+    /**
+     * Method to get the player in charge of the turn.
+     *
+     * @return the {@link Player} in charge of the turn
+     */
+    Player getCurrentPlayer();
+
+    /**
+     * Boolean indicating if the round is completed or not.
+     *
+     * @return true if the round is completed, false otherwise.
+     */
+    boolean isRoundOver();
+
+    /**
+     * State of a moment in a turn.
+     *
+     * @return {@link RoundStateImpl} of the turn in the moment called
+     */
+    RoundStateImpl getRoundState();
 
     /**
      * Determines the winner based on the cards on the table.

@@ -22,7 +22,7 @@ public class StartScreen extends JPanel{
     public StartScreen(final Consumer<Integer> onStart,final ActionListener onQuit){
         this.cardLayout = new CardLayout();
         this.setLayout(this.cardLayout);
-        this.setBackground(new Color(30,100,30));
+        this.setBackground(new Color(30,100, 72));
 
         // Istanziamo i sotto-pannelli specialisti (ora visibili grazie alle import)
         final JPanel mainMenu = new MainMenu(
