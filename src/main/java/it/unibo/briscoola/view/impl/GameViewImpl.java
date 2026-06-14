@@ -32,11 +32,11 @@ public class GameViewImpl extends JFrame implements View {
     private final PileView playerPile = new PileView("Player");
     private final PileView cpuPile = new PileView("CPU");
 
-    private CardView briscolaCardView;
+    private CardViewImpl briscolaCardView;
     private JLabel deckLabel;
 
-    private final CardView[] playerHandCards = new CardView[3];
-    private final CardView[] cpuHandCards = new CardView[3];
+    private final CardViewImpl[] playerHandCards = new CardViewImpl[3];
+    private final CardViewImpl[] cpuHandCards = new CardViewImpl[3];
 
     public GameViewImpl() {
         super("BriscOOla");
@@ -77,8 +77,8 @@ public class GameViewImpl extends JFrame implements View {
         JPanel cpuHandPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         cpuHandPanel.setOpaque(false);
         for (int i = 0; i < 3; i++) {
-            cpuHandCards[i] = new CardView();
-            cpuHandCards[i].renderCard(null); // Mostra il dorso
+            cpuHandCards[i] = new CardViewImpl();
+            cpuHandCards[i].renderCard(null, null); // Mostra il dorso
             cpuHandPanel.add(cpuHandCards[i]);
         }
         
@@ -94,8 +94,8 @@ public class GameViewImpl extends JFrame implements View {
         JPanel playerHandPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         playerHandPanel.setOpaque(false);
         for (int i = 0; i < 3; i++) {
-            playerHandCards[i] = new CardView();
-            playerHandCards[i].renderCard(null); // Mostra il retro della carta
+            playerHandCards[i] = new CardViewImpl();
+            playerHandCards[i].renderCard(null, null); // Mostra il retro della carta
             playerHandPanel.add(playerHandCards[i]);
         }
 
@@ -129,8 +129,8 @@ public class GameViewImpl extends JFrame implements View {
             deckLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         }
 
-        briscolaCardView = new CardView();
-        briscolaCardView.renderCard(null);
+        briscolaCardView = new CardViewImpl();
+        briscolaCardView.renderCard(null, null);
 
         deckBriscolaPanel.add(deckLabel);
         deckBriscolaPanel.add(briscolaCardView);
@@ -149,7 +149,7 @@ public class GameViewImpl extends JFrame implements View {
 
 
     /**
-     * @InheritDoc
+     * {@InheritDoc}
      */
     @Override
     public void start() {
@@ -158,7 +158,7 @@ public class GameViewImpl extends JFrame implements View {
 
     
     /**
-     * @InheritDoc
+     * {@InheritDoc}
      */
     @Override
     public void initGame() {
@@ -214,7 +214,7 @@ public class GameViewImpl extends JFrame implements View {
 
     
     /**
-     * @InheritDoc
+     * {@InheritDoc}
      */
     @Override
     public void updatePile(int cardsCount, boolean player) {
@@ -230,7 +230,7 @@ public class GameViewImpl extends JFrame implements View {
 
 
     /**
-     * @InheritDoc
+     * {@InheritDoc}
      */
     @Override
     public void displayMessage(String message) {
@@ -239,7 +239,7 @@ public class GameViewImpl extends JFrame implements View {
 
 
     /**
-     * @InheritDoc
+     * {@InheritDoc}
      */
     @Override
     public void quit() {
