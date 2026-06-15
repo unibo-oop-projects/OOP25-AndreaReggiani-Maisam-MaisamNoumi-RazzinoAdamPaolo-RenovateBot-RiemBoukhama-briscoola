@@ -34,11 +34,11 @@ public class GameViewImpl extends JFrame implements View {
     private final PileView playerPile = new PileView("Player");
     private final PileView cpuPile = new PileView("CPU");
 
-    private CardView briscolaCardView;
+    private CardViewImpl briscolaCardView;
     private JLabel deckLabel;
 
-    private final CardView[] playerHandCards = new CardView[3];
-    private final CardView[] cpuHandCards = new CardView[3];
+    private final CardViewImpl[] playerHandCards = new CardViewImpl[3];
+    private final CardViewImpl[] cpuHandCards = new CardViewImpl[3];
 
     private  MenuController menuController;
     private GameController gameController;
@@ -82,8 +82,8 @@ public class GameViewImpl extends JFrame implements View {
         JPanel cpuHandPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         cpuHandPanel.setOpaque(false);
         for (int i = 0; i < 3; i++) {
-            cpuHandCards[i] = new CardView();
-            cpuHandCards[i].renderCard(null);
+            cpuHandCards[i] = new CardViewImpl();
+            cpuHandCards[i].renderCard(null, null); 
             cpuHandPanel.add(cpuHandCards[i]);
         }
         
@@ -99,8 +99,8 @@ public class GameViewImpl extends JFrame implements View {
         JPanel playerHandPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         playerHandPanel.setOpaque(false);
         for (int i = 0; i < 3; i++) {
-            playerHandCards[i] = new CardView();
-            playerHandCards[i].renderCard(null);
+            playerHandCards[i] = new CardViewImpl();
+            playerHandCards[i].renderCard(null, null);
             playerHandPanel.add(playerHandCards[i]);
         }
 
@@ -134,8 +134,8 @@ public class GameViewImpl extends JFrame implements View {
             deckLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         }
 
-        briscolaCardView = new CardView();
-        briscolaCardView.renderCard(null);
+        briscolaCardView = new CardViewImpl();
+        briscolaCardView.renderCard(null, null);
 
         deckBriscolaPanel.add(deckLabel);
         deckBriscolaPanel.add(briscolaCardView);
@@ -182,13 +182,30 @@ public class GameViewImpl extends JFrame implements View {
         if (playerID == 0) {
             for (int i = 0; i < 3; i++) {
                 if (i < handCards.size()) {
-                    /*
-                     * We cast to StandardCardImpl to make it compatible with your unchanged CardView
-                     */
-                    final StandardCardImpl concreteCard = 
-                        (StandardCardImpl) handCards.get(i);
+
+                    final Card card= handCards.get(i);
+
+                    String seedStr = switch (card.getCardSeed()) {
+                        case STAFF -> "bastoni";
+                        case CUP -> "coppe";
+                        case COIN -> "denari";
+                        case SWORD -> "spade";
+                    };
+
+                    String valueStr = String.valueOf(switch (card.getCardValue()) {
+                        case ACE -> 1;
+                        case TWO -> 2;
+                        case THREE -> 3;
+                        case FOUR -> 4;
+                        case FIVE -> 5;
+                        case SIX -> 6;
+                        case SEVEN -> 7;
+                        case JACK -> 8;
+                        case HORSE -> 9;
+                        case KING -> 10;
+                    });
                     
-                    this.playerHandCards[i].renderCard(concreteCard);
+                    this.playerHandCards[i].renderCard(seedStr,valueStr);
                     this.playerHandCards[i].setVisible(true);
                 } else {
                     /*
@@ -205,7 +222,7 @@ public class GameViewImpl extends JFrame implements View {
             for (int i = 0; i < 3; i++) {
                 if (i < handCards.size()) {
 
-                    this.cpuHandCards[i].renderCard(null);
+                    this.cpuHandCards[i].renderCard(null,null);
                     this.cpuHandCards[i].setVisible(true);
                 } else {
                     this.cpuHandCards[i].setVisible(false);

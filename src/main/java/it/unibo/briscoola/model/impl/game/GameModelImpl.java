@@ -134,7 +134,7 @@ public class GameModelImpl implements GameModel{
     @Override
     public RoundWinner endRound(){
         RoundWinner winner = this.roundManager.determineWinner();
-        winner.player().addPoints(winner.points());
+        // winner.player().addPoints(winner.points());
         computeNextTurnOrder(winner.player());
         this.drawAfterTrick(this.players);
         if(!this.isGameOver()){
