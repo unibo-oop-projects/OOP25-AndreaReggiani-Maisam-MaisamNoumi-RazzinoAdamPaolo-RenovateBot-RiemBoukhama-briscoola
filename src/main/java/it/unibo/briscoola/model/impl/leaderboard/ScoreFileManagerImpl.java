@@ -56,8 +56,8 @@ public class ScoreFileManagerImpl implements ScoreFileManager {
             }
             if (Files.notExists(path)) {
                 Files.createFile(path);
+                Files.writeString(path, "[]");
             }
-            Files.writeString(path, "");
         } catch (final IOException e) {
             logger.error("Error during the Manager prep method-> {}", e.getMessage(), e);
         }
