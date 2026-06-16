@@ -9,18 +9,15 @@ import java.util.List;
 
 public class LeaderboardView extends JPanel implements Leaderboard {
 
-    private final Integer SCREEN_RATIO = 5;
-
-    private final List<Pair<String,String>> scoreboard;
-
     public LeaderboardView(List<Pair<String,String>> scoreboard){
-        this.scoreboard = List.copyOf(scoreboard);
-        this.setLayout(new GridLayout());
+        List<Pair<String, String>> scoreboard1 = List.copyOf(scoreboard);
+        this.setLayout(new GridLayout(0,1));
         this.setBackground(Color.GRAY);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        this.setSize(toolkit.getScreenSize().width/SCREEN_RATIO, toolkit.getScreenSize().height/SCREEN_RATIO);
+        int SCREEN_RATIO = 5;
+        this.setSize(toolkit.getScreenSize().width/ SCREEN_RATIO, toolkit.getScreenSize().height/ SCREEN_RATIO);
         scoreboard.forEach(pair->
-                this.add(new JLabel(pair.x() + " - " + pair.y()))
+                this.add(new JLabel(pair.x() + " - " + pair.y()), SwingConstants.CENTER)
         );
     }
 
