@@ -17,8 +17,16 @@ public class MainMenu extends JPanel {
         this.setOpaque(false);
 
         final GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(15, 15, 15, 15); /* this define empty space around the buttons */
-        gbc.gridx = 0; /*all in one central column */
+
+        /**
+         * define empty space around the buttons 
+         */
+        gbc.insets = new Insets(15, 15, 15, 15); 
+        
+        /**
+         * all in one central column 
+         */
+        gbc.gridx = 0; 
         
         final JLabel title = new JLabel("BRISCOOLA");
         title.setFont(new Font("Serif", Font.BOLD, 70));
@@ -29,6 +37,11 @@ public class MainMenu extends JPanel {
         final JButton btnPlay = new JButton("Play");
         btnPlay.setPreferredSize(new Dimension(200, 50));
         btnPlay.addActionListener(choosePlay);
+
+        /**
+         * remove the focus from btn play 
+         */
+        btnPlay.setFocusPainted(false);
         gbc.gridy = 1;
         add(btnPlay, gbc);
 
@@ -37,6 +50,11 @@ public class MainMenu extends JPanel {
         JButton btnQuit = new JButton("Exit");
         btnQuit.setPreferredSize(new Dimension(200, 50));
         btnQuit.addActionListener(chooseExit);
+
+        /**
+         * remove the focus from btn exit 
+         */
+        btnQuit.setFocusPainted(false);
         gbc.gridy = 2;
         add(btnQuit, gbc);
     }
