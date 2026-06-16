@@ -7,34 +7,31 @@ import it.unibo.briscoola.model.api.game.RoundManager;
 import it.unibo.briscoola.model.api.player.Player;
 import it.unibo.briscoola.model.impl.card.StandardCardImpl;
 import it.unibo.briscoola.model.impl.game.RoundManagerImpl;
-import it.unibo.briscoola.model.impl.game.RoundWinner;
 import it.unibo.briscoola.model.impl.player.cpu.CpuPlayer;
 import it.unibo.briscoola.model.impl.player.cpu.StrategyFactory;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-
+/**
+ * Test class made to verify the correct functioning of the {@link RoundManagerImpl} class.
+ */
 public class RoundManagerTest {
     private List<Player> playerList;
     private RoundManager manager;
+
     @BeforeEach
-    void init(){
+    final void init() {
         this.playerList = new ArrayList<>();
         this.playerList.add(new CpuPlayer(0, StrategyFactory.create(Difficulty.EASY)));
         this.playerList.add(new CpuPlayer(1, StrategyFactory.create(Difficulty.EASY)));
 
-        playerList.getFirst().receiveCard(new StandardCardImpl(CardValue.ACE,CardSeed.CUP));
-        playerList.getFirst().receiveCard(new StandardCardImpl(CardValue.JACK,CardSeed.SWORD));
+        playerList.getFirst().receiveCard(new StandardCardImpl(CardValue.ACE, CardSeed.CUP));
+        playerList.getFirst().receiveCard(new StandardCardImpl(CardValue.JACK, CardSeed.SWORD));
 
-        playerList.getLast().receiveCard(new StandardCardImpl(CardValue.ACE,CardSeed.CUP));
-        playerList.getLast().receiveCard(new StandardCardImpl(CardValue.ACE,CardSeed.CUP));
-
+        playerList.getLast().receiveCard(new StandardCardImpl(CardValue.ACE, CardSeed.CUP));
+        playerList.getLast().receiveCard(new StandardCardImpl(CardValue.ACE, CardSeed.CUP));
 
         this.manager = new RoundManagerImpl(CardSeed.SWORD);
         this.manager.startRound(List.copyOf(playerList));
