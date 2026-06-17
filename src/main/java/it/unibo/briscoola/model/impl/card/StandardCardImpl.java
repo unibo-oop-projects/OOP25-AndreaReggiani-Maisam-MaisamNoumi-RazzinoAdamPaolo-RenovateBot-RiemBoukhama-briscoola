@@ -2,6 +2,9 @@ package it.unibo.briscoola.model.impl.card;
 import it.unibo.briscoola.model.api.attributes.CardSeed;
 import it.unibo.briscoola.model.api.attributes.CardValue;
 import it.unibo.briscoola.model.api.card.Card;
+import it.unibo.briscoola.model.impl.game.RoundPlay;
+
+import java.util.Objects;
 
 public class StandardCardImpl implements Card {
 
@@ -49,6 +52,21 @@ public class StandardCardImpl implements Card {
         /**
          * getPowerCard is from enum CardValue
          */
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Card that = (Card) o;
+        return Objects.equals(this.seed, that.getCardSeed()) && Objects.equals(this.value, that.getCardValue());
     }
     
 }
