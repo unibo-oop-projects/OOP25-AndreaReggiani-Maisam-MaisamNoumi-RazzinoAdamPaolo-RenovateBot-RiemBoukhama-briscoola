@@ -12,13 +12,23 @@ import it.unibo.briscoola.model.api.game.GameModel;
 import it.unibo.briscoola.model.api.game.RoundManager;
 import it.unibo.briscoola.model.api.player.Player;
 
-public class GameModelImpl implements GameModel{
+/**
+ * Implementation of {@link GameModel} interface.
+ * This class handles the game flow (including the deck management, the player interaction and the round state transitions).
+ */
+public class GameModelImpl implements GameModel {
 
     private final Deck<Card> deck;
     private final List<Player> players;
     private Card briscolaCard;
     private final RoundManager roundManager;
 
+    /**
+     * Constructs a new {@code GameModelImpl} with the specified players and deck.
+     * 
+     * @param players the list of players partecipating in the match.
+     * @param deck the game deck to be used for the match.
+     */
     public GameModelImpl(final List<Player> players, final Deck<Card> deck) {
         this.players = new ArrayList<>(players);
         this.deck = deck;
@@ -29,7 +39,7 @@ public class GameModelImpl implements GameModel{
     /**
      * Initializes the table state.
      */
-    private void init(){
+    private void init() {
         this.assignBriscola();
         this.dealInitialCards();
     }
@@ -56,7 +66,7 @@ public class GameModelImpl implements GameModel{
      */
     @Override
     public void assignBriscola() {
-        this.briscolaCard= this.deck.getBriscolaSeed().orElseThrow();
+        this.briscolaCard = this.deck.getBriscolaSeed().orElseThrow();
     }
 
     /** 
@@ -64,8 +74,8 @@ public class GameModelImpl implements GameModel{
      */
     @Override
     public void dealInitialCards() {
-        for(int i = 0; i < 3; i++){
-            for(final Player p : players){
+        for (int i = 0; i < 3; i++) {
+            for (final Player p : players) {
                 p.receiveCard(deck.draw().orElseThrow());
             }
         }
@@ -75,8 +85,8 @@ public class GameModelImpl implements GameModel{
      * {@inheritDoc}
      */
     @Override
-    public void drawAfterTrick(final List<Player> orderedPlayers){
-        for(final Player player: orderedPlayers){
+    public void drawAfterTrick(final List<Player> orderedPlayers) {
+        for (final Player player: orderedPlayers) {
             final Optional<Card> card = this.deck.draw();
             card.ifPresent(player::receiveCard);
         }
@@ -104,69 +114,69 @@ public class GameModelImpl implements GameModel{
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return this.roundManager.getCurrentPlayer();
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
-    public boolean isRoundOver(){
+    public boolean isRoundOver() {
         return this.roundManager.isRoundOver();
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
-    public void computeNextTurnOrder(Player startingPlayer){
-        int index = this.players.indexOf(startingPlayer);
-        Collections.rotate(this.players, index*(-1));
+    public void computeNextTurnOrder(final Player startingPlayer) {
+        final int index = this.players.indexOf(startingPlayer);
+        Collections.rotate(this.players, index * (-1));
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
-    public RoundWinner endRound(){
-        RoundWinner winner = this.roundManager.determineWinner();
-        
-        Player actualWinner = this.players.stream()
+    public RoundWinner endRound() {
+        final RoundWinner winner = this.roundManager.determineWinner();
+
+        final Player actualWinner = this.players.stream()
                 .filter(p -> p.getId() == winner.player().getId())
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("No winner could be determined"));
 
-        for (Card wonCard : winner.wonCards()) {
+        for (final Card wonCard : winner.wonCards()) {
             actualWinner.addtoPile(wonCard);
         }
-        
+
         computeNextTurnOrder(actualWinner);
         this.drawAfterTrick(this.players);
-        
-        if(!this.isGameOver()){
+
+        if (!this.isGameOver()) {
             this.roundManager.startRound(this.players);
         }
         return winner;
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
-    public void makeMove(Player player, Card card){
+    public void makeMove(final Player player, final Card card) {
         player.getHand().remove(card);
         this.roundManager.playTurn(player, card);
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
-    public RoundStateImpl getCurrentRoundState(){
+    public RoundStateImpl getCurrentRoundState() {
         return this.roundManager.getRoundState();
     }
 }
