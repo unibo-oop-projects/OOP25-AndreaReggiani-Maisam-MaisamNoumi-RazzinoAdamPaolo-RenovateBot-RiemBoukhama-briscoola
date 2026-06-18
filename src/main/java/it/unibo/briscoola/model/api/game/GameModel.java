@@ -69,6 +69,12 @@ public interface GameModel {
     Player getCurrentPlayer();
 
     /**
+     * Returns the list of players currently participating in the game.
+     * @return an immutable list containing all {@link Player}s in the game.
+     */
+    List<Player> getPlayers();
+
+    /**
      * Boolean indicating if the round is completed or not.
      *
      * @return true if the round is completed, false otherwise.

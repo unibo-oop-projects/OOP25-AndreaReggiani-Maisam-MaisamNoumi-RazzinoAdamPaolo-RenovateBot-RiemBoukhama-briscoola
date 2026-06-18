@@ -125,6 +125,14 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
+    public List<Player> getPlayers() {
+        return List.copyOf(this.players);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isRoundOver() {
         return this.roundManager.isRoundOver();
     }
