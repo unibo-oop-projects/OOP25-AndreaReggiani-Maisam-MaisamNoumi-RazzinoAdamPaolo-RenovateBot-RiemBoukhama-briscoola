@@ -2,12 +2,13 @@ package it.unibo.briscoola.controller.impl;
 
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import it.unibo.briscoola.controller.api.GameController;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.game.GameModel;
 import it.unibo.briscoola.model.api.player.Player;
 import it.unibo.briscoola.model.impl.game.RoundPlay;
-import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 import it.unibo.briscoola.model.impl.game.RoundWinner;
 import it.unibo.briscoola.model.impl.player.cpu.CpuPlayer;
 import it.unibo.briscoola.view.api.View;
@@ -19,8 +20,14 @@ import it.unibo.briscoola.view.api.View;
  */
 public class GameControllerImpl implements GameController {
 
+    private static final int ROUND_END_DELAY_MS = 1500;
+    private static final int CPU_THINK_DELAY_MS = 800;
+
     private final GameModel model;
     private final View view;
+
+    private Player humanPlayer;
+    private Player cpuPlayer;
 
     /**
      * Creates a new GameControllerImpl associating it with the model and the view.
@@ -35,13 +42,17 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * Starts the match by preparing the model, initializing the graphics,
-     * displaying the initial hands and starting the first turn.
+     * {@inheritDoc}
      */
     @Override
     public void startGame() {
         model.startMatch();
         view.initGame();
+
+        if (model.getCurrentPlayer().getId() == 0) {
+            this.humanPlayer = model.getCurrentPlayer();
+        }
+
         updateAllHands();
         manageTurn();
     }
@@ -53,36 +64,81 @@ public class GameControllerImpl implements GameController {
     public void manageTurn() {
 
         if (model.isGameOver()) {
-            view.displayMessage("The game is finished.");
+            final int humanPoints = this.humanPlayer != null ? this.humanPlayer.getPoints() : 0;
+            final int cpuPoints = this.cpuPlayer != null ? this.cpuPlayer.getPoints() : 0;
+
+            String finalMsg = "GAME OVER! ";
+            if (humanPoints > cpuPoints) {
+                finalMsg += "You Won!";
+            } else if (cpuPoints > humanPoints) {
+                finalMsg += "CPU Won!";
+            } else {
+                finalMsg += "It's a Tie";
+            }
+
+            final String message = finalMsg + " Score -> Player: " + humanPoints + " | CPU: " + cpuPoints;
+
+            SwingUtilities.invokeLater(() -> {
+                view.displayMessage(message);
+                view.start();
+            });
             return;
         }
 
         if (model.isRoundOver()) {
-            final RoundWinner winner = model.endRound();
-            final boolean isHuman = winner.player().getId() == 0;
+            new Thread(() -> {
+                try {
+                    Thread.sleep(ROUND_END_DELAY_MS); 
+                } catch (final InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
 
-            view.displayMessage("Round won by: " + (isHuman ? "Player" : "CPU") 
-                    + " with " + winner.wonCards().size() + " cards!");
-            view.updatePile(winner.wonCards().size(), isHuman);
+                SwingUtilities.invokeLater(() -> {
+                    final RoundWinner winner = model.endRound();
+                    view.displayMessage("Round won by: " + (winner.player().getId() == 0 ? "Player" : "CPU") 
+                        + " with " + winner.wonCards().size() + " cards!");
 
-            view.updateTable(null, null, null, null);
+                    if (this.humanPlayer != null) {
+                        view.updatePile(this.humanPlayer.getPile().size(), true);
+                    }
+                    if (this.cpuPlayer != null) {
+                        view.updatePile(this.cpuPlayer.getPile().size(), false);
+                    }
 
-            updateAllHands();
-            manageTurn();
+                    view.updateTable(null, null, null, null); 
+                    updateAllHands();
+                    manageTurn();
+                });
+            }).start();
             return;
         }
 
         final Player currentPlayer = model.getCurrentPlayer();
-        view.displayMessage("It's " + (currentPlayer.getId() == 0 ? "Player" : "CPU") + "'s turn");
+
+        if (currentPlayer.getId() == 0) {
+            this.humanPlayer = currentPlayer;
+        } else if (currentPlayer instanceof CpuPlayer) {
+            this.cpuPlayer = currentPlayer;
+        }
 
         if (currentPlayer instanceof CpuPlayer cpu) {
-            final Card chosenCard = cpu.playCard(model.getCurrentRoundState());
-            model.makeMove(cpu, chosenCard);
-            refreshTable();
-            view.updateHand(cpu.getId(), cpu.getHand());
-            manageTurn();
+            new Thread(() -> {
+                try {
+                    Thread.sleep(CPU_THINK_DELAY_MS); 
+                } catch (final InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+
+                SwingUtilities.invokeLater(() -> {
+                    final Card chosenCard = cpu.playCard(model.getCurrentRoundState());
+                    updateTableGraphics(currentPlayer, chosenCard);
+                    model.makeMove(cpu, chosenCard);
+                    view.updateHand(cpu.getId(), cpu.getHand());
+                    manageTurn();
+                });
+            }).start();
         } else {
-            // The GUI is waiting for a user click.
+            view.updateHand(0, currentPlayer.getHand());
         }
     }
 
@@ -91,42 +147,47 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void handlesHumanCardSelection(final int selectedIndex) {
-        final Player human = model.getCurrentPlayer();
-
-        if (human instanceof CpuPlayer) {
-            throw new IllegalStateException("User input received during the CPU's turn.");
+        if (model.getCurrentPlayer().getId() != 0) {
+            return; 
         }
 
+        final Player human = model.getCurrentPlayer();
+        this.humanPlayer = human;
         final Card card = human.getHand().get(selectedIndex);
+
+        updateTableGraphics(human, card);
         model.makeMove(human, card);
-        refreshTable();
-        view.updateHand(0, human.getHand());
+        view.updateHand(0, human.getHand()); 
+
         manageTurn();
     }
 
-    private void refreshTable() {
-        final RoundStateImpl state = model.getCurrentRoundState();
-        final List<RoundPlay> plays = state.playedCards(); 
-
-        String hSeed = null;
-        String hValue = null;
+    private void updateTableGraphics(final Player player, final Card card) {
+        String pSeed = null;
+        String pValue = null;
         String cSeed = null;
         String cValue = null;
 
-        for (final RoundPlay play : plays) {
-            final Player p = play.player(); 
-            final Card c = play.card();
-
-            if (p.getId() == 0) { 
-                hSeed = c.getCardSeed().name();
-                hValue = c.getCardValue().name();
+        final List<RoundPlay> currentPlays = model.getCurrentRoundState().playedCards();
+        for (final RoundPlay play : currentPlays) {
+            if (play.player().getId() == 0) {
+                pSeed = play.card().getCardSeed().name();
+                pValue = play.card().getCardValue().name();
             } else {
-                cSeed = c.getCardSeed().name();
-                cValue = c.getCardValue().name();
+                cSeed = play.card().getCardSeed().name();
+                cValue = play.card().getCardValue().name();
             }
         }
 
-        view.updateTable(hSeed, hValue, cSeed, cValue);
+        if (player.getId() == 0) {
+            pSeed = card.getCardSeed().name();
+            pValue = card.getCardValue().name();
+        } else {
+            cSeed = card.getCardSeed().name();
+            cValue = card.getCardValue().name();
+        }
+
+        view.updateTable(pSeed, pValue, cSeed, cValue);
     }
 
     private void updateAllHands() {

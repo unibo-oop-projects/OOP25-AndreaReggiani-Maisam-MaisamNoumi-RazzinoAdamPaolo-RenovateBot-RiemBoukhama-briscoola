@@ -176,8 +176,8 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public void makeMove(final Player player, final Card card) {
-        player.getHand().remove(card);
-        this.roundManager.playTurn(player, card);
+    this.roundManager.playTurn(player, card);
+    player.removeCard(card);
     }
 
     /**
