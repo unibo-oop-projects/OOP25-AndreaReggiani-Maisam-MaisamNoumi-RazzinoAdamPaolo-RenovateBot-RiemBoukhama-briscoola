@@ -1,87 +1,120 @@
 package it.unibo.briscoola.view.impl.menu;
 
-import javax.swing.*;
-import java.awt.*;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.BorderFactory;
+import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+
+/**
+ * Component that extends {@link JDialog}.
+ * It's used to show to the user the rules of the game on screen.
+ */
 public class RulesDialog extends JDialog {
 
+    /**
+     * Builds an element of {@link JDialog} over the parent Frame.
+     * It contains the rules of the game.
+     *
+     * @param parentFrame {@link JFrame} owner of the {@link JDialog}
+     */
     public RulesDialog(JFrame parentFrame) {
         super(parentFrame, "Rules of the Game", true);
+        final int WIDTH = 550;
+        final int HEIGHT = 600;
+        final int BG_R = 20;
+        final int BG_G = 80;
+        final int BG_B = 25;
+        final int BORDER_RADIUS = 20;
+        final int TEXT_FONT_SIZE = 14;
+        final int BUTTON_TEXT_SIZE = 16;
+        final int BUTTON_BORDER_THICKNESS = 1;
+        final int BUTTON_VERTICAL_BORDER = 10;
+        final int BUTTON_HORIZONTAL_BORDER = 30;
+        final int HGAP = 0;
+        final int VGAP = 15;
 
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setSize(550, 600);
+        setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(parentFrame);
-
-        Color lightGreenBg = new Color(190, 225, 190);
-        Color pinkButtonColor = new Color(255, 180, 200);
-
+        final Color greenBg = new Color(BG_R, BG_G, BG_B);
         JTextArea textArea = new JTextArea(getRulesText());
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        textArea.setFont(new Font("Arial", Font.BOLD, 14));
-        textArea.setBackground(lightGreenBg);
+        textArea.setFont(new Font("Arial", Font.BOLD, TEXT_FONT_SIZE));
+        textArea.setBackground(greenBg);
         textArea.setForeground(Color.BLACK);
-        textArea.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setBorder(BorderFactory.createEmptyBorder(BORDER_RADIUS, BORDER_RADIUS, BORDER_RADIUS, BORDER_RADIUS));
+        final JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setBorder(null);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        JButton closeButton = new JButton("CLOSE");
-        closeButton.setFont(new Font("Arial", Font.BOLD, 16));
-        closeButton.setBackground(pinkButtonColor);
+        final JButton closeButton = new JButton("CLOSE");
+        closeButton.setFont(new Font("Arial", Font.BOLD, BUTTON_TEXT_SIZE));
         closeButton.setFocusPainted(false);
         closeButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.GRAY, 1),
-                BorderFactory.createEmptyBorder(10, 30, 10, 30)
+                BorderFactory.createLineBorder(Color.GRAY, BUTTON_BORDER_THICKNESS),
+                BorderFactory.createEmptyBorder(BUTTON_VERTICAL_BORDER,
+                        BUTTON_HORIZONTAL_BORDER,
+                        BUTTON_VERTICAL_BORDER,
+                        BUTTON_HORIZONTAL_BORDER)
         ));
-
         closeButton.addActionListener(e -> dispose());
-
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 15));
-        buttonPanel.setBackground(lightGreenBg);
+        final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, HGAP, VGAP));
+        buttonPanel.setBackground(greenBg);
         buttonPanel.add(closeButton);
-
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private String getRulesText() {
-        return "BRISCOLA GAME RULES\n\n" +
-                "1. SETUP\n" +
-                "• The player enters an optional name.\n" +
-                "• The player is required to choose the game Difficulty.\n" +
-                "• Each player is given 3 cards.\n" +
-                "• The Briscola card gets chosen and put on the table face up.\n\n" +
-                "4. CARD EXPLANATION:\n"+
-                "The Cards follow a power logic following the order of the sequent list\n"+
-                "In which there will be listed the points of each card as well\n"+
-                "TWO -> 0\n"+
-                "FOUR -> 0\n"+
-                "FIVE -> 0\n"+
-                "SIX -> 0\n"+
-                "SEVEN -> 0\n"+
-                "EIGHT/SOLDIER -> 2\n"+
-                "NINE/HORSE -> 3\n"+
-                "TEN/KING -> 4\n"+
-                "THREE -> 10\n"+
-                "ONE/ACE -> 11\n"+
-                "3. YOUR TURN\n" +
-                "Select the card to be played based on:\n\n" +
-                " - Cards on the table:\n"+
-                "       Remember that the briscola seed rules over every other\n"+
-                "       If there is no briscola on the table the leadSeed rules\n\n"+
-                "4. CPU TURN\n"+
-                "The CPU elaborates what is on the table and makes its move\n"+
-                "based on the chosen difficulty"+
-                "5. DETERMINE WINNER\n"+
-                "The game decides the winner of the round and starts a new round\n"+
-                "The next round is started by the winner of the latest\n"+
-                "This process repeats until the deck and every player's hand is empty\n"+
-                "6. LEADERBOARD SCORING\n"+
-                "The player will see his points on the leaderboard\n" +
-                "If high enough"                ;
+        return """
+                BRISCOLA GAME RULES
+                
+                1. SETUP
+                • The player enters an optional name.
+                • The player is required to choose the game Difficulty.
+                • Each player is given 3 cards.
+                • The Briscola card gets chosen and put on the table face up.
+                
+                2. CARD EXPLANATION:
+                The Cards follow a power logic following the order of the sequent list
+                In which there will be listed the points of each card as well
+                TWO -> 0
+                FOUR -> 0
+                FIVE -> 0
+                SIX -> 0
+                SEVEN -> 0
+                EIGHT/SOLDIER -> 2
+                NINE/HORSE -> 3
+                TEN/KING -> 4
+                THREE -> 10
+                ONE/ACE -> 11
+                3. YOUR TURN
+                Select the card to be played based on:
+                
+                 - Cards on the table:
+                       Remember that the briscola seed rules over every other
+                       If there is no briscola on the table the leadSeed rules
+                
+                4. CPU TURN
+                The CPU elaborates what is on the table and makes its move
+                based on the chosen difficulty\
+                5. DETERMINE WINNER
+                The game decides the winner of the round and starts a new round
+                The next round is started by the winner of the latest
+                This process repeats until the deck and every player's hand is empty
+                6. LEADERBOARD SCORING
+                The player will see his points on the leaderboard
+                If high enough
+                """;
     }
 }
