@@ -47,12 +47,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * {@inheritDoc }
-     * Handles the current turn logic by checking the game state.
-     * If the game is over, it stops the loop and notifies the view.
-     * If the round is over, it assigns points, clears the table, update hands and starts a new round.
-     * If it's the CPU's turn, it calculates and plays the move automatically.
-     * If it's the human's turn, the method returns, leaving the GUI waiting for a user click.
+     * {@inheritDoc}
      */
     @Override
     public void manageTurn() {
