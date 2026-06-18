@@ -20,6 +20,9 @@ import it.unibo.briscoola.view.api.View;
  */
 public class GameControllerImpl implements GameController {
 
+    private static final int ROUND_END_DELAY_MS = 1500;
+    private static final int CPU_THINK_DELAY_MS = 800;
+
     private final GameModel model;
     private final View view;
 
@@ -45,11 +48,11 @@ public class GameControllerImpl implements GameController {
     public void startGame() {
         model.startMatch();
         view.initGame();
-        
+
         if (model.getCurrentPlayer().getId() == 0) {
             this.humanPlayer = model.getCurrentPlayer();
         }
-        
+
         updateAllHands();
         manageTurn();
     }
@@ -63,7 +66,7 @@ public class GameControllerImpl implements GameController {
         if (model.isGameOver()) {
             final int humanPoints = this.humanPlayer != null ? this.humanPlayer.getPoints() : 0;
             final int cpuPoints = this.cpuPlayer != null ? this.cpuPlayer.getPoints() : 0;
-            
+
             String finalMsg = "GAME OVER! ";
             if (humanPoints > cpuPoints) {
                 finalMsg += "You Won!";
@@ -72,9 +75,9 @@ public class GameControllerImpl implements GameController {
             } else {
                 finalMsg += "It's a Tie";
             }
-            
+
             final String message = finalMsg + " Score -> Player: " + humanPoints + " | CPU: " + cpuPoints;
-            
+
             SwingUtilities.invokeLater(() -> {
                 view.displayMessage(message);
                 view.start();
@@ -85,14 +88,15 @@ public class GameControllerImpl implements GameController {
         if (model.isRoundOver()) {
             new Thread(() -> {
                 try {
-                    Thread.sleep(1500); 
+                    Thread.sleep(ROUND_END_DELAY_MS); 
                 } catch (final InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
 
                 SwingUtilities.invokeLater(() -> {
                     final RoundWinner winner = model.endRound();
-                    view.displayMessage("Round won by: " + (winner.player().getId() == 0 ? "Player" : "CPU") + " with " + winner.wonCards().size() + " cards!");
+                    view.displayMessage("Round won by: " + (winner.player().getId() == 0 ? "Player" : "CPU") 
+                        + " with " + winner.wonCards().size() + " cards!");
 
                     if (this.humanPlayer != null) {
                         view.updatePile(this.humanPlayer.getPile().size(), true);
@@ -100,7 +104,7 @@ public class GameControllerImpl implements GameController {
                     if (this.cpuPlayer != null) {
                         view.updatePile(this.cpuPlayer.getPile().size(), false);
                     }
-                    
+
                     view.updateTable(null, null, null, null); 
                     updateAllHands();
                     manageTurn();
@@ -110,7 +114,7 @@ public class GameControllerImpl implements GameController {
         }
 
         final Player currentPlayer = model.getCurrentPlayer();
-        
+
         if (currentPlayer.getId() == 0) {
             this.humanPlayer = currentPlayer;
         } else if (currentPlayer instanceof CpuPlayer) {
@@ -120,7 +124,7 @@ public class GameControllerImpl implements GameController {
         if (currentPlayer instanceof CpuPlayer cpu) {
             new Thread(() -> {
                 try {
-                    Thread.sleep(800); 
+                    Thread.sleep(CPU_THINK_DELAY_MS); 
                 } catch (final InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -146,18 +150,17 @@ public class GameControllerImpl implements GameController {
         if (model.getCurrentPlayer().getId() != 0) {
             return; 
         }
-        
+
         final Player human = model.getCurrentPlayer();
         this.humanPlayer = human;
         final Card card = human.getHand().get(selectedIndex);
-        
+
         updateTableGraphics(human, card);
         model.makeMove(human, card);
         view.updateHand(0, human.getHand()); 
-        
+
         manageTurn();
     }
-
 
     private void updateTableGraphics(final Player player, final Card card) {
         String pSeed = null;
