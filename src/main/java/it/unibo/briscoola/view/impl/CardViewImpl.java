@@ -6,20 +6,35 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.net.URL;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 import it.unibo.briscoola.view.api.CardView;
 
-public class CardViewImpl extends JPanel implements CardView {
+/**
+ * Implementation of the {@link CardView} representing a single card in the user interface.
+ */
+public final class CardViewImpl extends JPanel implements CardView {
+
+    private static final int CARD_WIDTH = 100;
+    private static final int CARD_HEIGHT = 150;
+
+    private static final int BG_R = 100;
+    private static final int BG_G = 149;
+    private static final int BG_B = 237;
 
     private final JButton cardButton;
 
+    /**
+     * Constructs a new CardViewImpl.
+     */
     public CardViewImpl() {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(100, 150));
+        setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
         setBackground(Color.WHITE);
         setOpaque(false);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
@@ -32,14 +47,14 @@ public class CardViewImpl extends JPanel implements CardView {
     }
 
     @Override
-    public void renderCard(String seed, String value) {
-        
+    public void renderCard(final String seed, final String value) {
+
         if (seed == null || value == null) {
-            URL backUrl = getClass().getResource("/cards/backside.png");
-            
+            final URL backUrl = getClass().getResource("/cards/backside.png");
+
             if (backUrl != null) {
-                ImageIcon icon = new ImageIcon(backUrl);
-                Image img = icon.getImage().getScaledInstance(
+                final ImageIcon icon = new ImageIcon(backUrl);
+                final Image img = icon.getImage().getScaledInstance(
                         this.getPreferredSize().width, 
                         this.getPreferredSize().height, 
                         Image.SCALE_SMOOTH);
@@ -49,20 +64,20 @@ public class CardViewImpl extends JPanel implements CardView {
             } else {
                 cardButton.setIcon(null);
                 cardButton.setText("RETRO");
-                setBackground(new Color(100, 149, 237)); 
+                setBackground(new Color(BG_R, BG_G, BG_B)); 
             }
-            
+
             revalidate();
             repaint();
             return;
         }
 
-        String filename = seed + "_" + value + ".png";
-        URL imgUrl = getClass().getResource("/cards/" + filename);
+        final String filename = seed + "_" + value + ".png";
+        final URL imgUrl = getClass().getResource("/cards/" + filename);
 
         if (imgUrl != null) {
-            ImageIcon icon = new ImageIcon(imgUrl);
-            Image img = icon.getImage().getScaledInstance(
+            final ImageIcon icon = new ImageIcon(imgUrl);
+            final Image img = icon.getImage().getScaledInstance(
                     this.getPreferredSize().width, 
                     this.getPreferredSize().height, 
                     Image.SCALE_SMOOTH);
@@ -81,7 +96,7 @@ public class CardViewImpl extends JPanel implements CardView {
     }
 
     @Override
-    public void addCardClickListener(ActionListener listener){
+    public void addCardClickListener(final ActionListener listener) {
         cardButton.addActionListener(listener);
     }
 }
