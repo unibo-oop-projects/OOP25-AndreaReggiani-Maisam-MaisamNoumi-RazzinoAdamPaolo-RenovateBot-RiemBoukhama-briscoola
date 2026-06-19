@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class made to verify the correct functioning of the {@link GameModelImpl} class.
+ * 
+ * @author Maisam Noumi
  */
 class GameModelTest {
 
@@ -23,6 +25,7 @@ class GameModelTest {
     /**
      * Builds a two player model before each test and stats the match.
      */
+    @BeforeEach
     void setUp() {
         final GameBuilderImpl builder = new GameBuilderImpl();
         builder.setDifficulty(Difficulty.EASY);
