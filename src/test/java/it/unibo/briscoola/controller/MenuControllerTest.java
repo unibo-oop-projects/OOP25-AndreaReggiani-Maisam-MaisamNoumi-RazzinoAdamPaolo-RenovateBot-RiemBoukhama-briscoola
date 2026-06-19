@@ -1,12 +1,17 @@
 package it.unibo.briscoola.controller;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.beans.Transient;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import it.unibo.briscoola.controller.api.GameController;
 import it.unibo.briscoola.controller.api.MenuController;
 import it.unibo.briscoola.controller.impl.MenuControllerImpl;
+import it.unibo.briscoola.model.api.attributes.Difficulty;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.view.api.View;
 
@@ -22,7 +27,9 @@ class MenuControllerTest {
 
     @BeforeEach
     final void init() {
+
         this.testView= new View() {
+
             @Override 
             public void setMenuController(final MenuController menuControllerTest) {}
 
@@ -56,6 +63,25 @@ class MenuControllerTest {
         this.testMenuController= new MenuControllerImpl(null, this.testView);
     }
     
+    @Test
+    void testStartGameWithInvalidPlayers() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.testMenuController.startGame(1, Difficulty.EASY);
+        });
 
-    
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.testMenuController.startGame(3, Difficulty.MEDIUM);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.testMenuController.startGame(4, Difficulty.HARD);
+        });
+    }
+
+    @Test
+    void testStartGameWithNullDifficulty() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.testMenuController.startGame(2, null);
+        });
+    }
 }
