@@ -25,8 +25,6 @@ import it.unibo.briscoola.view.api.View;
  */
 public class GameControllerImpl implements GameController {
 
-    private final String LEADERBOARD_FILE = "leaderboard.json";
-
     private static final int ROUND_END_DELAY_MS = 1500;
     private static final int CPU_THINK_DELAY_MS = 800;
 
@@ -76,7 +74,8 @@ public class GameControllerImpl implements GameController {
 
             String finalMsg = "GAME OVER! ";
             if (humanPoints > cpuPoints) {
-                final ScoreFileManager manager = new ScoreFileManagerImpl(LEADERBOARD_FILE);
+                final String leaderboardFile = "leaderboard.json";
+                final ScoreFileManager manager = new ScoreFileManagerImpl(leaderboardFile);
                 final Leaderboard leaderboard = new LeaderboardImpl(manager);
                 leaderboard.addEntry(new ScoreEntryImpl("Player", (int) (humanPoints * this.model.getDifficulty().value)));
                 leaderboard.saveScores();

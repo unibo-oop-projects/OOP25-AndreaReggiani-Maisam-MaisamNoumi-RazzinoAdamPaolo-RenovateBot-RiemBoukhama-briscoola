@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.briscoola.model.api.attributes.CardSeed;
 import it.unibo.briscoola.model.api.attributes.Difficulty;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.deck.Deck;
@@ -30,6 +29,7 @@ public class GameModelImpl implements GameModel {
      * 
      * @param players the list of players partecipating in the match.
      * @param deck the game deck to be used for the match.
+     * @param difficulty the difficulty level of the game.
      */
     public GameModelImpl(final List<Player> players, final Deck<Card> deck, final Difficulty difficulty) {
         this.players = new ArrayList<>(players);
@@ -43,12 +43,8 @@ public class GameModelImpl implements GameModel {
      * Initializes the table state.
      */
     private void init() {
-        System.out.println("PRIMA ASSEGNAZIONE " + deck.getActualSize());
         this.assignBriscola();
-        System.out.println("DOPO ASSEGNAZIONE "+deck.getActualSize());
         this.dealInitialCards();
-        System.out.println("DOPO DEALING "+deck.getActualSize());
-
     }
 
     /** 
@@ -204,7 +200,7 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public Difficulty getDifficulty(){
+    public Difficulty getDifficulty() {
         return this.difficulty;
     }
 }

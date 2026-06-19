@@ -3,7 +3,6 @@ package it.unibo.briscoola.model.api.game;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.briscoola.model.api.attributes.CardSeed;
 import it.unibo.briscoola.model.api.attributes.Difficulty;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.Player;
@@ -113,7 +112,7 @@ public interface GameModel {
     RoundStateImpl getCurrentRoundState();
 
     /**
-     * Returns the {@link Difficulty} of the gamemodel
+     * Returns the {@link Difficulty} of the gamemodel.
      *
      * @return the {@link Difficulty} of the game
      */
