@@ -17,7 +17,7 @@ import it.unibo.briscoola.model.impl.game.GameBuilderImpl;
  */
 public class MenuControllerImpl implements MenuController {
 
-     private static final int MAX_PLAYERS = 2;
+    private static final int MAX_PLAYERS = 2;
     private final View view;
 
     /**
