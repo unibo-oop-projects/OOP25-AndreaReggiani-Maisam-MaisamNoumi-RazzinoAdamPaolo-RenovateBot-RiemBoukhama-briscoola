@@ -15,8 +15,12 @@ import javax.swing.JPanel;
 /**
  * Panel inside the startup sequence that allows the user to select
  * the number of players for the match.
+ * 
+ * @author Andrea Reggiani
  */
-public class PlayerSelectionsPanel extends JPanel {
+public final class PlayerSelectionsPanel extends JPanel {
+
+    private static final long serialVersionUID = 1L;
 
     private static final int INSET_PADDING = 15;
     private static final int FONT_SIZE = 70;

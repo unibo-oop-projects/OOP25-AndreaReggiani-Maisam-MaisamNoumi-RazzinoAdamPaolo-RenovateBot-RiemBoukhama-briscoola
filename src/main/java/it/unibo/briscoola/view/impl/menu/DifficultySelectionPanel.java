@@ -16,8 +16,12 @@ import it.unibo.briscoola.model.api.attributes.Difficulty;
 /**
  * Panel in the startup that allows the player to select 
  * the CPU difficulty before starting the match.
+ * 
+ * @author Andrea Reggiani
  */
-public class DifficultySelectionPanel extends JPanel {
+public final class DifficultySelectionPanel extends JPanel {
+
+    private static final long serialVersionUID = 1L;
 
     private static final int INSET_PADDING = 15;
     private static final int FONT_SIZE = 60;

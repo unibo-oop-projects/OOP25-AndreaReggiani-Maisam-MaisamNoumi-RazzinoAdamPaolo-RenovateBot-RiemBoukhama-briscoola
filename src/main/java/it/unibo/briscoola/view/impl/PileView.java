@@ -13,6 +13,8 @@ import javax.swing.SwingConstants;
 
 /**
  * represents the view of the deck of cards taken by the player.
+ * 
+ * @author Andrea Reggiani
  */
 public final class PileView extends JPanel {
 

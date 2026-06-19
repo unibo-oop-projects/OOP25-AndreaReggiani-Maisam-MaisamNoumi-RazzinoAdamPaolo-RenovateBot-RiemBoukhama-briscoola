@@ -13,6 +13,8 @@ import it.unibo.briscoola.model.impl.game.GameBuilderImpl;
  * implementation of the MenuController
  * This class has the role to handle the initial setUp
  * and starts the match.
+ * 
+ * @author Andrea Reggiani
  */
 public class MenuControllerImpl implements MenuController {
 

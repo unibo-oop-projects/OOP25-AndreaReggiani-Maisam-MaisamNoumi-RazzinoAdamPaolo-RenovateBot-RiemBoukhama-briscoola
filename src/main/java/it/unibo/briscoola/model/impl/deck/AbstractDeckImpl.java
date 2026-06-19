@@ -13,6 +13,8 @@ import it.unibo.briscoola.model.api.deck.Deck;
  * and querying the deck of cards.
  *
  * @param <T> the type of {@link Card} handled by the deck
+ * 
+ * @author Andrea Reggiani
  */
 public abstract class AbstractDeckImpl<T extends Card> implements Deck<T> {
 

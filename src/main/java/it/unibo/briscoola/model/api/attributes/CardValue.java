@@ -5,6 +5,8 @@ package it.unibo.briscoola.model.api.attributes;
  * after there are jack, horse, king
  * the value level are 2,4,5,6,7,jack,horse,king,tree,ace
  * card(valuePoints,valueHierarchy.
+ * 
+ * @author Andrea Reggiani
  */
 public enum CardValue {
 

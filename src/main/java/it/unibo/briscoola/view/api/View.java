@@ -8,6 +8,8 @@ import it.unibo.briscoola.view.api.popup.Popups;
 
 /**
  * Interface View for the graphic setting.
+ * 
+ * @author Andrea Reggiani
  */
 public interface View {
 
@@ -84,8 +86,8 @@ public interface View {
     /**
      * Prepares and displays the popup on the screen.
      * 
-     * @param type
-     * @param message
+     * @param type type of pop up
+     * @param message the message to send
      */
     void triggerPopup(Popups type, String message);
 }

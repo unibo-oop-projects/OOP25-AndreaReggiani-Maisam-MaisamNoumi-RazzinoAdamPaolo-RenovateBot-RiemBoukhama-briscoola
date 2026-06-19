@@ -32,6 +32,8 @@ import it.unibo.briscoola.view.api.popup.PopupFactory;
  * This class extends {@link JFrame} and implements {@link View}, giving 
  * the visual container for the game board, the startup screen,
  * the player cards and the center match arena.
+ * 
+ * @author Andrea Reggiani
  */
 public final class GameViewImpl extends JFrame implements View {
 

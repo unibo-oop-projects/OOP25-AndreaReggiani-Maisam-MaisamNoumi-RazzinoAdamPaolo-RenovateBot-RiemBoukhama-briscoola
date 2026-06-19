@@ -4,6 +4,8 @@ import it.unibo.briscoola.model.api.attributes.Difficulty;
 
 /**
  * Manages the initial menu and setup of the Briscola game.
+ * 
+ * @author Andrea Reggiani
  */
 public interface MenuController {
 
