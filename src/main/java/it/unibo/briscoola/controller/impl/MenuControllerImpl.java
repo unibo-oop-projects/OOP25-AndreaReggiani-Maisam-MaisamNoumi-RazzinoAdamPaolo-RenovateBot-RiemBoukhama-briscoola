@@ -17,7 +17,7 @@ import it.unibo.briscoola.model.impl.game.GameBuilderImpl;
  */
 public class MenuControllerImpl implements MenuController {
 
-    private GameModel model;
+     private static final int MAX_PLAYERS = 2;
     private final View view;
 
     /**
@@ -27,7 +27,6 @@ public class MenuControllerImpl implements MenuController {
      * @param view the application view
      */
     public MenuControllerImpl(final GameModel model, final View view) {
-        this.model = model;
         this.view = view;
     }
 
@@ -36,8 +35,8 @@ public class MenuControllerImpl implements MenuController {
      */
     @Override
     public void startGame(final int numPlayers, final Difficulty difficulty) {
-        if (numPlayers != 2 && numPlayers != 4) {
-            throw new IllegalArgumentException("Il gioco supporta solo modalità a 2 o 4 giocatori");
+        if (numPlayers != MAX_PLAYERS) {
+            throw new IllegalArgumentException("Il gioco supporta solo modalità a 2 giocatori");
         }
         if (difficulty == null) {
             throw new IllegalArgumentException("La difficolta non puo essere nulla");
@@ -49,16 +48,16 @@ public class MenuControllerImpl implements MenuController {
         for (int i = 1; i < numPlayers; i++) {
             builder.addPlayer();
         }
+        final GameModel model = builder.build();
 
-        this.model = builder.build();
-        this.model.startMatch();
+        model.startMatch();
         this.view.initGame(); 
 
-        final Player human = this.model.getCurrentPlayer(); 
+        final Player human = model.getCurrentPlayer(); 
         this.view.updateHand(0, human.getHand());
 
-        if (this.model.getBriscolaSeed().isPresent()) { 
-            final String briscolaSeedStr = this.model.getBriscolaSeed().get().name();
+        if (model.getBriscolaSeed().isPresent()) { 
+            final String briscolaSeedStr = model.getBriscolaSeed().get().name();
 
             final CardValue[] values = CardValue.values();
             final int randomIndex = new java.util.Random().nextInt(values.length);
@@ -69,7 +68,7 @@ public class MenuControllerImpl implements MenuController {
             }
         }
 
-        final GameController gameController = new GameControllerImpl(this.model, this.view);
+        final GameController gameController = new GameControllerImpl(model, this.view);
         this.view.setGameController(gameController);
         gameController.startGame();
     }

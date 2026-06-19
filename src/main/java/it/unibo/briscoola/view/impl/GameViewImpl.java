@@ -27,7 +27,7 @@ import it.unibo.briscoola.view.api.View;
  * the visual container for the game board, the startup screen,
  * the player cards and the center match arena.
  */
-public class GameViewImpl extends JFrame implements View {
+public final class GameViewImpl extends JFrame implements View {
 
     private static final long serialVersionUID = 1L;
 
@@ -61,7 +61,7 @@ public class GameViewImpl extends JFrame implements View {
     private CardViewImpl briscolaCardView;
     private CardViewImpl playerPlayedCardView;
     private CardViewImpl cpuPlayedCardView;
-    /*private JLabel deckLabel; */
+
 
     private final CardViewImpl[] playerHandCards = new CardViewImpl[NUMBER_OF_CARDS];
     private final CardViewImpl[] cpuHandCards = new CardViewImpl[NUMBER_OF_CARDS];
@@ -70,7 +70,7 @@ public class GameViewImpl extends JFrame implements View {
     private GameController gameController;
 
     /**
-     * Constructs a new {@code GameViewImpl} with the specified menuController.
+     * Constructs a new {@code GameViewImpl} with the specified Menu Controller.
      * 
      * @param menuController the controller with the role of handling the menu events
      */
@@ -304,7 +304,7 @@ public class GameViewImpl extends JFrame implements View {
      * 
      * @return an array containing the hand component views
      */
-    public final CardViewImpl[] getPlayerHandCards() {
+    public CardViewImpl[] getPlayerHandCards() {
         return this.playerHandCards.clone();
     }
 

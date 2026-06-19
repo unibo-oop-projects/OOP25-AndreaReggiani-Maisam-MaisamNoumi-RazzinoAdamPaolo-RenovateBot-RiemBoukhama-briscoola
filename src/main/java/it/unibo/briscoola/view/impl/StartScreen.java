@@ -15,12 +15,10 @@ import java.util.function.BiConsumer;
  * Uses a {@link CardLayout} to change between the main menu, the player count selection,
  * and the difficulty selection panels.
  */
-public class StartScreen extends JPanel {
+public final class StartScreen extends JPanel {
 
-    /**
-     * it simply includes the two sub-panels 
-     * and manages the exchange via CardLayout.
-     */
+    private static final long serialVersionUID = 1L;
+
     private static final String MAIN_MENU = "MAIN";
     private static final String PLAYER_SELECTION = "SELECTION";
     private static final String DIFFICULTY_SELECTION = "DIFFICULTY";
@@ -41,6 +39,11 @@ public class StartScreen extends JPanel {
      */
     public StartScreen(final BiConsumer<Integer, Difficulty> onSetupComplete, final ActionListener onQuit) {
         this.cardLayout = new CardLayout();
+        this.initScreenLayout(onSetupComplete, onQuit);
+
+    }
+
+    private void initScreenLayout(final BiConsumer<Integer, Difficulty> onSetupComplete, final ActionListener onQuit) {
         this.setLayout(this.cardLayout);
         this.setBackground(new Color(BG_R, BG_G, BG_B));
 

@@ -3,7 +3,6 @@ package it.unibo.briscoola.model.impl.card;
 import it.unibo.briscoola.model.api.attributes.CardSeed;
 import it.unibo.briscoola.model.api.attributes.CardValue;
 import it.unibo.briscoola.model.api.card.Card;
-import it.unibo.briscoola.model.impl.game.RoundPlay;
 
 import java.util.Objects;
 
@@ -71,5 +70,13 @@ public class StandardCardImpl implements Card {
         }
         final Card that = (Card) o;
         return Objects.equals(this.seed, that.getCardSeed()) && Objects.equals(this.value, that.getCardValue());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.seed, this.value);
     }
 }
