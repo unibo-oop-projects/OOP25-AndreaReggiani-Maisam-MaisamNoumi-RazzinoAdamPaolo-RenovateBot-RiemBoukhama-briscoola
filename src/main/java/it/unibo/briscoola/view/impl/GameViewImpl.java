@@ -7,21 +7,20 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import it.unibo.briscoola.controller.api.GameController;
 import it.unibo.briscoola.controller.api.MenuController;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.view.api.CardView;
 import it.unibo.briscoola.view.api.View;
+import it.unibo.briscoola.view.api.popup.PopupFactory;
+import it.unibo.briscoola.view.api.popup.Popups;
+import it.unibo.briscoola.view.impl.popup.PopupFactoryImpl;
 
 /**
  * Implementazion of {@link  View} interface.
@@ -237,6 +236,7 @@ public final class GameViewImpl extends JFrame implements View {
     @Override
     public void start() {
         this.setVisible(true);
+        this.setEscKeybind();
     }
 
     /**
@@ -245,6 +245,18 @@ public final class GameViewImpl extends JFrame implements View {
     @Override
     public void initGame() {
         cardLayout.show(container, GAME_ID);
+    }
+
+    private void setEscKeybind() {
+        InputMap inputMap = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = this.getRootPane().getActionMap();
+        inputMap.put(KeyStroke.getKeyStroke("ESCAPE"), "escAction");
+        actionMap.put("escAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameViewImpl.this.dispose();
+            }
+        });
     }
 
     /**
