@@ -1,4 +1,4 @@
-package it.unibo.briscoola.game;
+package it.unibo.briscoola.model;
 
 import it.unibo.briscoola.model.api.attributes.Difficulty;
 import it.unibo.briscoola.model.api.card.Card;
