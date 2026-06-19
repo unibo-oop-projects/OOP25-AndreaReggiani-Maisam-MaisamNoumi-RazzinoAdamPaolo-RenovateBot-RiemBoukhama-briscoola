@@ -4,7 +4,11 @@ import it.unibo.briscoola.model.api.leaderboard.Leaderboard;
 import it.unibo.briscoola.model.api.leaderboard.ScoreEntry;
 import it.unibo.briscoola.model.api.leaderboard.ScoreFileManager;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Comparator;
 
 /**
  * A standard implementation of the {@link Leaderboard} interface.
@@ -13,12 +17,13 @@ import java.util.*;
  * This class maintains an internal {@link List} of {@link ScoreEntry} objects.
  * It provides functionality to add new entries and retrieves them sorted
  * by their numerical score in ascending order.
+ *
+ * @author Adam Paolo Razzino
  */
 public class LeaderboardImpl implements Leaderboard {
 
     private List<ScoreEntry> list;
     private final ScoreFileManager manager;
-    private final int MAXIMUM_LEADERBOARD = 10;
 
     /**
      * Creates a new leaderboard and populates it with existing data.
@@ -44,9 +49,10 @@ public class LeaderboardImpl implements Leaderboard {
             return false;
         }
         this.list.add(Objects.requireNonNull(entry, "The entry cannot be null"));
+        final int maximumLeaderboard = 10;
         this.list = new ArrayList<>(this.list.stream()
                 .sorted(Comparator.comparing(ScoreEntry::getScore).reversed())
-                .limit(MAXIMUM_LEADERBOARD).toList());
+                .limit(maximumLeaderboard).toList());
         return true;
     }
 
@@ -73,7 +79,7 @@ public class LeaderboardImpl implements Leaderboard {
      * {@inheritDoc}
      */
     @Override
-    public void saveScores(){
+    public void saveScores() {
         this.manager.save(this.list);
     }
 }

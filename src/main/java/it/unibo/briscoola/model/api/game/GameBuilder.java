@@ -1,9 +1,14 @@
 package it.unibo.briscoola.model.api.game;
 
-
 import it.unibo.briscoola.model.api.attributes.Difficulty;
 import it.unibo.briscoola.model.impl.game.GameBuilderImpl;
 
+/**
+ * Interface of a builder class that allows a simple and fast creation
+ * of a {@link GameModel} through a builder design.
+ *
+ * @author Adam Paolo Razzino
+ */
 public interface GameBuilder {
 
     /**
@@ -22,7 +27,7 @@ public interface GameBuilder {
     GameBuilderImpl addPlayer();
 
     /**
-     * Builds the {@link GameModel} based on the current configuration
+     * Builds the {@link GameModel} based on the current configuration.
      *
      * @return a {@link GameModel} item with the selected configuration
      */

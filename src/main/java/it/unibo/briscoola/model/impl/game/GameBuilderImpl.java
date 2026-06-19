@@ -15,12 +15,22 @@ import it.unibo.briscoola.model.impl.player.PlayerImpl;
 import it.unibo.briscoola.model.impl.player.cpu.CpuPlayer;
 import it.unibo.briscoola.model.impl.player.cpu.StrategyFactory;
 
+/**
+ * Builder class that allows a simple and fast creation of a {@link GameModel}
+ * through a builder design.
+ *
+ * @author Adam Paolo Razzino
+ */
 public class GameBuilderImpl implements GameBuilder {
 
     private final List<Player> players = new ArrayList<>();
     private PlayStrategy playStrategy;
     private int id;
 
+    /**
+     * Basic constructor in which it instantiates the human
+     * {@link Player} with the id equals to 0.
+     */
     public GameBuilderImpl() {
         players.add(new PlayerImpl(id++));
     }

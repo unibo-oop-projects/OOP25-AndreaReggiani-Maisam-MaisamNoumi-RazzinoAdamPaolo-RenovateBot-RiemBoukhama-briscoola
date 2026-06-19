@@ -13,14 +13,20 @@ import java.util.Optional;
 /**
  * Strategy of the CPU for choosing the card to be played in Hard Difficulty
  * Points to use the best suited card based on the cards present on the table.
+ *
+ * @author Adam Paolo Razzino
  */
 public class HardStrategy implements PlayStrategy {
+
+    private final int briscolaPower = 2000;
+    private final int leadPower = 1000;
+    private final int firstIndex = 0;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int cardIndex(final List<Card> hand, RoundStateImpl state) {
+    public int cardIndex(final List<Card> hand, final RoundStateImpl state) {
         if (hand == null || hand.isEmpty()) {
             throw new IllegalArgumentException("hand must not be empty");
         }
@@ -31,10 +37,14 @@ public class HardStrategy implements PlayStrategy {
 
         final java.util.function.Function<Card, Integer> rank = c -> {
             //Returns an over the top rank because the briscola beats all but the cards of the same seed
-            if (c.getCardSeed() == briscola) return 2000 + c.getCardPower();
+            if (c.getCardSeed() == briscola) {
+                return briscolaPower + c.getCardPower();
+            }
             final Optional<CardSeed> lead = state.leadSeed();
             //The leadSeed if the briscola is not present, holds the highest rank
-            if (lead.isPresent() && c.getCardSeed() == lead.get()) return 1000 + c.getCardPower();
+            if (lead.isPresent() && c.getCardSeed() == lead.get()) {
+                return leadPower + c.getCardPower();
+            }
             return c.getCardPower();
         };
 
@@ -45,7 +55,7 @@ public class HardStrategy implements PlayStrategy {
                     .max(Comparator.comparingInt(Card::getCardPower))
                     .or(() -> hand.stream().max(Comparator.comparingInt(Card::getCardPower)))
                     .map(hand::indexOf)
-                    .orElse(0);
+                    .orElse(firstIndex);
         }
         //If the table isn't empty
         //Selects the card that is currently winning on the table
@@ -56,13 +66,14 @@ public class HardStrategy implements PlayStrategy {
         final boolean briscolaOnTable = table.stream()
                 .anyMatch(rp -> rp.card().getCardSeed() == briscola);
         //If there's a briscola on the table
+        final int missingCardIndex = -1;
         if (briscolaOnTable) {
             //Selects the highest rank of the played briscolas
             final int highestBrPower = table.stream()
                     .filter(rp -> rp.card().getCardSeed() == briscola)
                     .mapToInt(rp -> rp.card().getCardPower())
                     .max()
-                    .orElse(-1);
+                    .orElse(missingCardIndex);
             //Selects, if exists, a briscola card in hand stronger than the one played
             final Optional<Card> winningBr = hand.stream()
                     .filter(c -> c.getCardSeed() == briscola && c.getCardPower() > highestBrPower)
@@ -71,7 +82,7 @@ public class HardStrategy implements PlayStrategy {
             return winningBr.map(hand::indexOf).orElseGet(() -> hand.stream()
                     .min(Comparator.comparingInt(Card::getCardPoints))
                     .map(hand::indexOf)
-                    .orElse(0));
+                    .orElse(firstIndex));
 
         } else {
             final Card current = currentWinner.orElseThrow();
@@ -79,7 +90,7 @@ public class HardStrategy implements PlayStrategy {
             final int highestLeadPower = table.stream()
                     .filter(rp -> rp.card().getCardSeed() == leadSeed)
                     .mapToInt(rp -> rp.card().getCardPower())
-                    .max().orElse(-1);
+                    .max().orElse(missingCardIndex);
 
             final Optional<Card> beatLead = hand.stream()
                     .filter(c -> c.getCardSeed() == leadSeed && c.getCardPower() > highestLeadPower)
@@ -96,7 +107,7 @@ public class HardStrategy implements PlayStrategy {
             return useTrump.map(hand::indexOf).orElseGet(() -> hand.stream()
                     .min(Comparator.comparingInt(Card::getCardPoints))
                     .map(hand::indexOf)
-                    .orElse(0));
+                    .orElse(firstIndex));
 
         }
     }

@@ -70,6 +70,7 @@ public interface GameModel {
 
     /**
      * Returns the list of players currently participating in the game.
+     *
      * @return an immutable list containing all {@link Player}s in the game.
      */
     List<Player> getPlayers();

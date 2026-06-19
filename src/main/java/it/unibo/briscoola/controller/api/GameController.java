@@ -6,7 +6,8 @@ package it.unibo.briscoola.controller.api;
 public interface GameController {
 
     /**
-     * Starts the game.
+     * Starts the match by preparing the model, initializing the graphics,
+     * displaying the initial hands and starting the first turn.
      */
     void startGame();
 

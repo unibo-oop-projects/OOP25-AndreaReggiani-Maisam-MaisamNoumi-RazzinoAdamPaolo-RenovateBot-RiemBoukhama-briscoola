@@ -8,6 +8,8 @@ import it.unibo.briscoola.model.impl.player.cpu.strategies.MediumStrategy;
 
 /**
  * Allows a method to create simply a new strategy based on the difficulty requested.
+ *
+ * @author Adam Paolo Razzino
  */
 public final class StrategyFactory {
 

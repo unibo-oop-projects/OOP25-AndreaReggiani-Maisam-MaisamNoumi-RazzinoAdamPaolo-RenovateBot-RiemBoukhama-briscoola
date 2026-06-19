@@ -1,7 +1,5 @@
 package it.unibo.briscoola.model.impl.player.cpu;
 
-import java.util.List;
-
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.PlayStrategy;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
@@ -9,7 +7,9 @@ import it.unibo.briscoola.model.impl.player.PlayerImpl;
 
 /**
  * Unextendable class that represent a singular CpuPlayer.
- * Extends @link{PlayerImpl}
+ * Extends {@link PlayerImpl}
+ *
+ * @author Adam Paolo Razzino
  */
 public final class CpuPlayer extends PlayerImpl {
 
@@ -26,15 +26,28 @@ public final class CpuPlayer extends PlayerImpl {
         this.strategy = strategy;
     }
 
-    public CpuPlayer(final int id, final int points, final List<Card> hand, final List<Card> pile, final PlayStrategy strategy) {
-        super(id, points, hand, pile);
-        this.strategy = strategy;
+    /**
+     * Constructor that creates a new {@link CpuPlayer} based
+     * on the parameter cpu player.
+     *
+     * @param cpu {@link CpuPlayer} to copy
+     */
+    public CpuPlayer(final CpuPlayer cpu) {
+        super(cpu.getId(), cpu.getPoints(), cpu.getHand(), cpu.getPile());
+        this.strategy = cpu.strategy;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public CpuPlayer copy() {
-        return new CpuPlayer(this.getId(), this.getPoints(), this.getHand(), this.getPile(), this.strategy);
+        return new CpuPlayer(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Card playCard(final RoundStateImpl state) {
         final int index = strategy.cardIndex(this.getHand(), state);

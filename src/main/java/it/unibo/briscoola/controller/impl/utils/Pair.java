@@ -8,9 +8,12 @@ import java.io.Serializable;
  * this class may be provided as a standard Java class
  * with getters, hashCode, equals, and toString well implemented.
  *
+ * @author Adam Paolo Razzino
+ *
  * @param <X> type of first element
  * @param <Y> type of second element
  * @param x first element
  * @param y second element
+ *
  */
 public record Pair<X, Y>(X x, Y y) implements Serializable { }

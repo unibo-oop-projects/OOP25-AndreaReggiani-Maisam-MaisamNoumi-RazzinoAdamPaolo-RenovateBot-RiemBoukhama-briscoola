@@ -5,10 +5,14 @@ import it.unibo.briscoola.model.api.player.Player;
 import it.unibo.briscoola.model.impl.game.RoundPlay;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 import it.unibo.briscoola.model.impl.game.RoundWinner;
-
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Interface that provides the method to create a round manager
+ * to handle every moment of a game round.
+ *
+ * @author Adam Paolo Razzino
+ */
 public interface RoundManager {
 
     /**
@@ -17,7 +21,6 @@ public interface RoundManager {
      * @param turnOrder the list of players sorted in the
      */
     void startRound(List<Player> turnOrder);
-
 
     /**
      * Handles the happening of a turn of a player and the chosen card.

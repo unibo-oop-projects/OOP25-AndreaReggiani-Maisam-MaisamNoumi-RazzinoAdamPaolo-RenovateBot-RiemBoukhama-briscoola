@@ -29,6 +29,8 @@ import it.unibo.briscoola.model.api.leaderboard.ScoreFileManager;
  * This class handles the serialization and deserialization of leaderboard data
  * using the Google Gson library. Data is persisted to a local JSON file
  * located in the user's home directory under the {@code .briscoola} folder.
+ *
+ * @author Adam Paolo Razzino
  */
 public class ScoreFileManagerImpl implements ScoreFileManager {
 

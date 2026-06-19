@@ -10,6 +10,8 @@ import java.util.Objects;
  *  <p>
  *  This class is immutable, representing a snapshot of a player's
  *  performance at the end of a match.
+ *
+ * @author Adam Paolo Razzino
  */
 public class ScoreEntryImpl implements ScoreEntry {
 

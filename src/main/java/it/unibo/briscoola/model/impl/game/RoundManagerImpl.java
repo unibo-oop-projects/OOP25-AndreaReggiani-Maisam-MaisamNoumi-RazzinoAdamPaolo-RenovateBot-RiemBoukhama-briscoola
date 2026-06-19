@@ -13,15 +13,30 @@ import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.game.RoundManager;
 import it.unibo.briscoola.model.api.player.Player;
 
+/**
+ * Class that handles the table for each game and has method to
+ * play a round and check the state of the game.
+ * Takes in input the {@link List} of {@link Player} for the round and
+ * handles each part of the turn until the determination of the
+ * {@link RoundWinner} after which clears the table.
+ *
+ * @author Adam Paolo Razzino
+ */
 public class RoundManagerImpl implements RoundManager {
 
     private final List<RoundPlay> table;
     private final CardSeed briscola;
     private List<Player> playersList;
     private CardSeed leadSeed;
-    private int currentPlayerIndex = 0;
+    private int currentPlayerIndex;
     private final Logger logger = LoggerFactory.getLogger(RoundManagerImpl.class);
 
+    /**
+     * Constructor of the RoundManager that creates a table with the
+     * {@link CardSeed} as briscola.
+     *
+     * @param briscola {@link CardSeed} of the briscola card
+     */
     public RoundManagerImpl(final CardSeed briscola) {
         this.table = new ArrayList<>();
         this.briscola = briscola;
@@ -31,8 +46,10 @@ public class RoundManagerImpl implements RoundManager {
      * {@inheritDoc}
      */
     @Override
-    public void startRound(final List<Player> turnOrder){
-        if (turnOrder == null || turnOrder.isEmpty()) throw new IllegalArgumentException("List of players cannot be null");
+    public void startRound(final List<Player> turnOrder) {
+        if (turnOrder == null || turnOrder.isEmpty()) {
+            throw new IllegalArgumentException("List of players cannot be null");
+        }
         this.playersList = List.copyOf(turnOrder);
     }
 
@@ -42,8 +59,12 @@ public class RoundManagerImpl implements RoundManager {
      */
     @Override
     public void playTurn(final Player player, final Card card) {
-        if (this.getCurrentPlayer()!=player) throw new IllegalArgumentException("It's not this player's turn");
-        if (!player.getHand().contains(card)) throw new IllegalArgumentException("Card is not in the hand of this player");
+        if (this.getCurrentPlayer() != player) {
+            throw new IllegalArgumentException("It's not this player's turn");
+        }
+        if (!player.getHand().contains(card)) {
+            throw new IllegalArgumentException("Card is not in the hand of this player");
+        }
         if (this.table.isEmpty()) {
             this.leadSeed = card.getCardSeed();
         }
@@ -79,8 +100,6 @@ public class RoundManagerImpl implements RoundManager {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public RoundWinner determineWinner() {

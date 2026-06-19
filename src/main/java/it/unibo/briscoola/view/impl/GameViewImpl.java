@@ -23,7 +23,7 @@ import it.unibo.briscoola.view.api.View;
 
 /**
  * Implementazion of {@link  View} interface.
- * This class extends {@link JFrame} and implements {@link View}, giving 
+ * This class extends {@link JFrame} and implements {@link View}, giving
  * the visual container for the game board, the startup screen,
  * the player cards and the center match arena.
  */
@@ -70,8 +70,13 @@ public final class GameViewImpl extends JFrame implements View {
     private GameController gameController;
 
     /**
+<<<<<<< HEAD
      * Constructs a new {@code GameViewImpl} with the specified Menu Controller.
      * 
+=======
+     * Constructs a new {@code GameViewImpl} with the specified menuController.
+     *
+>>>>>>> 0d87a0e4b085f851ffd9f9473021ac6dbfb7593a
      * @param menuController the controller with the role of handling the menu events
      */
     public GameViewImpl(final MenuController menuController) {
@@ -121,13 +126,13 @@ public final class GameViewImpl extends JFrame implements View {
 
     /** 
      * Creation of the board.
-     * 
-     * @return gamePanel 
+     *
+     * @return gamePanel
      */
     private JPanel createGamePanel() {
         final JPanel mainPanel = new JPanel(new BorderLayout());
 
-        mainPanel.setBackground(new Color(BG_R, BG_G, BG_B)); 
+        mainPanel.setBackground(new Color(BG_R, BG_G, BG_B));
 
         final JPanel northArea = new JPanel(new BorderLayout());
         northArea.setOpaque(false); 
@@ -288,7 +293,10 @@ public final class GameViewImpl extends JFrame implements View {
      */
     @Override
     public void displayMessage(final String message) {
+        // I'd add an input of type Popups popup to specify the type of popup to show
         System.out.println(message);
+        /*PopupFactory factory = new PopupFactoryImpl();
+        factory.create(this.rootPane,popup, message).show();*/
     }
 
     /**
@@ -301,7 +309,7 @@ public final class GameViewImpl extends JFrame implements View {
 
     /**
      * Returns a safe clone of the player hand components array.
-     * 
+     *
      * @return an array containing the hand component views
      */
     public CardViewImpl[] getPlayerHandCards() {

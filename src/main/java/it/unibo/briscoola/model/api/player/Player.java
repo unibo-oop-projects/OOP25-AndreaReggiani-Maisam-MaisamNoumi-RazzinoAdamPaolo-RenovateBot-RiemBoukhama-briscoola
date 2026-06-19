@@ -73,7 +73,7 @@ public interface Player {
     int getPoints();
 
     /**
-     * @return a copy of the instanced {@link Player}
+     * @return A copy of the instanced {@link Player}
      */
     Player copy();
 }

@@ -14,6 +14,8 @@ import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 /**
  * Strategy of the CPU for choosing the card to be played in Easy Difficulty.
  * Points to use the highest powered cards last.
+ *
+ * @author Adam Paolo Razzino
  */
 public class EasyStrategy implements PlayStrategy {
 
