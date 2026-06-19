@@ -33,7 +33,7 @@ public final class CpuPlayer extends PlayerImpl {
      * @param cpu {@link CpuPlayer} to copy
      */
     public CpuPlayer(final CpuPlayer cpu) {
-        super(cpu.getId(), cpu.getPoints(), cpu.getHand(), cpu.getPile());
+        super(cpu);
         this.strategy = cpu.strategy;
     }
 

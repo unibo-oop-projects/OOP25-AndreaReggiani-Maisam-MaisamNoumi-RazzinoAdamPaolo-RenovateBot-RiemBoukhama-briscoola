@@ -49,6 +49,7 @@ public final class GameViewImpl extends JFrame implements View {
     private static final int FLOW_GAP_HAND = 20;
     private static final int FLOW_GAP_DECK = 15;
     private static final int FLOW_GAP_TABLE = 30;
+    private static final int EAST_SPACER_WIDTH = 380;
 
     private static final int FALLBACK_R = 100;
     private static final int FALLBACK_G = 149;
@@ -63,7 +64,6 @@ public final class GameViewImpl extends JFrame implements View {
     private CardViewImpl briscolaCardView;
     private CardViewImpl playerPlayedCardView;
     private CardViewImpl cpuPlayedCardView;
-
 
     private final CardViewImpl[] playerHandCards = new CardViewImpl[NUMBER_OF_CARDS];
     private final CardViewImpl[] cpuHandCards = new CardViewImpl[NUMBER_OF_CARDS];
@@ -222,10 +222,10 @@ public final class GameViewImpl extends JFrame implements View {
 
         centerWrapper.add(tableCenter);
         mainPanel.add(centerWrapper, BorderLayout.CENTER);
-        
+
         final JPanel eastSpacer = new JPanel();
         eastSpacer.setOpaque(false);
-        eastSpacer.setPreferredSize(new Dimension(380, 1));
+        eastSpacer.setPreferredSize(new Dimension(EAST_SPACER_WIDTH, 1));
         mainPanel.add(eastSpacer, BorderLayout.EAST);
 
         return mainPanel;

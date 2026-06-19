@@ -7,8 +7,10 @@ import java.util.Objects;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.Player;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
-import it.unibo.briscoola.model.impl.leaderboard.ScoreEntryImpl;
 
+/**
+ * Implementazion of {@link  Player} interface.
+ */
 public class PlayerImpl implements Player {
 
     private final int id;
@@ -16,6 +18,11 @@ public class PlayerImpl implements Player {
     private final List<Card> pile;
     private int points;
 
+    /**
+     * Constructor that creates a new Player.
+     *
+     * @param id Id assigned to the player
+     */
     public PlayerImpl(final int id) {
         this.id = id;
         this.points = 0;
@@ -23,24 +30,38 @@ public class PlayerImpl implements Player {
         this.pile = new ArrayList<>();
     }
 
-    public PlayerImpl(final int id, final int points, final List<Card> hand, final List<Card> pile){
-        this.id = id;
-        this.points = points;
-        this.hand = new ArrayList<>(hand);
-        this.pile = new ArrayList<>(pile);
+    /**
+     * Constructor that creates a new {@link CpuPlayer} based
+     * on the parameter cpu player.
+     *
+     * @param player {@link CpuPlayer} to copy
+     */
+    public PlayerImpl(final Player player) {
+        this.id = player.getId();
+        this.points = player.getPoints();
+        this.hand = new ArrayList<>(player.getHand());
+        this.pile = new ArrayList<>(player.getPile());
     }
-    
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Card playCard(final RoundStateImpl state) {
         return this.hand.removeFirst();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Card playCard(final int index){
+    public Card playCard(final int index) {
         return this.hand.remove(index);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void receiveCard(final Card card) {
         this.hand.add(card);
@@ -54,43 +75,69 @@ public class PlayerImpl implements Player {
         this.hand.remove(card);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Card> getHand() {
         return List.copyOf(this.hand);
     }
 
-    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addtoPile(final Card card) {
         this.pile.add(card);
         this.points = this.points + card.getCardPoints();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Card> getPile() {
         return this.pile;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clearPile() {
         this.pile.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getId() {
         return this.id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-     public int getPoints(){
+     public int getPoints() {
         return this.points;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public PlayerImpl copy(){
-        return new PlayerImpl(this.id, this.points, this.hand, this.pile);
+    public PlayerImpl copy() {
+        return new PlayerImpl(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id, this.hand, this.points);
     }
 
     /**
@@ -105,6 +152,8 @@ public class PlayerImpl implements Player {
             return false;
         }
         final Player that = (Player) o;
-        return this.id == that.getId() && Objects.equals(this.hand, that.getHand()) && Objects.equals(this.points, that.getPoints());
+        return this.id == that.getId() 
+        && Objects.equals(this.hand, that.getHand()) 
+        && Objects.equals(this.points, that.getPoints());
     }
 }
