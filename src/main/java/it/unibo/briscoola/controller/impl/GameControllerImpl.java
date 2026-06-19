@@ -95,8 +95,7 @@ public class GameControllerImpl implements GameController {
 
                 SwingUtilities.invokeLater(() -> {
                     final RoundWinner winner = model.endRound();
-                    view.displayMessage("Round won by: " + (winner.player().getId() == 0 ? "Player" : "CPU") 
-                        + " with " + winner.wonCards().size() + " cards!");
+                    view.displayMessage("Round won by: " + (winner.player().getId() == 0 ? "Player" : "CPU"));
 
                     if (this.humanPlayer != null) {
                         view.updatePile(this.humanPlayer.getPile().size(), true);
@@ -147,6 +146,11 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void handlesHumanCardSelection(final int selectedIndex) {
+
+        if (model.isGameOver() || model.isRoundOver()) {
+            return;
+        }
+
         if (model.getCurrentPlayer().getId() != 0) {
             return; 
         }
