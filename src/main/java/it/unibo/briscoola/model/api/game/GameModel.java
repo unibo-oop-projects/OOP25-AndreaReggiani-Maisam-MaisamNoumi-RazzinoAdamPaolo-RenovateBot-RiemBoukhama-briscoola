@@ -20,9 +20,9 @@ public interface GameModel {
     void startMatch();
 
     /**
-     * @return the CardSeed defined as Briscola, used to determine the dominant seed.
+     * @return the Card defined as Briscola, used to determine the dominant seed.
      */
-    Optional<CardSeed> getBriscolaSeed();
+    Optional<Card> getBriscolaSeed();
 
     /**
      * Checks if the game is over.

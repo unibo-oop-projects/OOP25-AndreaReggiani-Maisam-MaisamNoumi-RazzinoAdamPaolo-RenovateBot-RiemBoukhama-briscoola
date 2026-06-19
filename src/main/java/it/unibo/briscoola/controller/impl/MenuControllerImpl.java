@@ -57,11 +57,8 @@ public class MenuControllerImpl implements MenuController {
         this.view.updateHand(0, human.getHand());
 
         if (model.getBriscolaSeed().isPresent()) { 
-            final String briscolaSeedStr = model.getBriscolaSeed().get().name();
-
-            final CardValue[] values = CardValue.values();
-            final int randomIndex = new java.util.Random().nextInt(values.length);
-            final String briscolaValueStr = values[randomIndex].name();
+            final String briscolaSeedStr = model.getBriscolaSeed().get().getCardSeed().name();
+            final String briscolaValueStr = model.getBriscolaSeed().get().getCardValue().name();
 
             if (this.view instanceof GameViewImpl gameView) {
                 gameView.updateBriscola(briscolaSeedStr, briscolaValueStr);

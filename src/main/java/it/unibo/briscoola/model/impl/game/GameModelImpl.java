@@ -40,8 +40,12 @@ public class GameModelImpl implements GameModel {
      * Initializes the table state.
      */
     private void init() {
+        System.out.println("PRIMA ASSEGNAZIONE " + deck.getActualSize());
         this.assignBriscola();
+        System.out.println("DOPO ASSEGNAZIONE "+deck.getActualSize());
         this.dealInitialCards();
+        System.out.println("DOPO DEALING "+deck.getActualSize());
+
     }
 
     /** 
@@ -57,8 +61,8 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public Optional<CardSeed> getBriscolaSeed() {
-        return Optional.ofNullable(this.briscolaCard.getCardSeed());
+    public Optional<Card> getBriscolaSeed() {
+        return Optional.ofNullable(this.briscolaCard);
     }
 
     /** 
