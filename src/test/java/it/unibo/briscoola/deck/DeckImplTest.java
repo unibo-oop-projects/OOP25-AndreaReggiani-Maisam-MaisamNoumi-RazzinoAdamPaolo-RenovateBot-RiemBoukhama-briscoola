@@ -35,7 +35,7 @@ class DeckImplTest {
      */
     @Test
     void testInitialDeckSize() {
-        assertEquals(EXPECTED_NUM_CARDS, this.testDeck.getActualSize());
+        assertEquals(EXPECTED_NUM_CARDS, this.testDeck.getCurrentSize());
     }
 
     /*
@@ -45,7 +45,7 @@ class DeckImplTest {
     void testGetBriscolaSeedDoesNotRemoveCard() {
         final Optional<Card> briscola = this.testDeck.getBriscolaSeed();
         assertTrue(briscola.isPresent());
-        assertEquals(EXPECTED_NUM_CARDS, this.testDeck.getActualSize());
+        assertEquals(EXPECTED_NUM_CARDS, this.testDeck.getCurrentSize());
     }
 
     /*
@@ -54,11 +54,11 @@ class DeckImplTest {
     @Test
     void testDrawAllCards() {
         int cardsDrawn = 0;
-        while (this.testDeck.getActualSize() > 0) {
+        while (this.testDeck.getCurrentSize() > 0) {
             final Optional<Card> drawnCard = this.testDeck.draw();
             assertTrue(drawnCard.isPresent());
             cardsDrawn++;
-            assertEquals(EXPECTED_NUM_CARDS - cardsDrawn, this.testDeck.getActualSize());
+            assertEquals(EXPECTED_NUM_CARDS - cardsDrawn, this.testDeck.getCurrentSize());
         }
 
         /*

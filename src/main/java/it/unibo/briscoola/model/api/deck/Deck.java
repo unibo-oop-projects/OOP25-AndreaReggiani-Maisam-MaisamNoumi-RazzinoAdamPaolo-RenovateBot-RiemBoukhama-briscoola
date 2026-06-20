@@ -38,7 +38,7 @@ public interface Deck<T extends Card> {
      * 
      * @return the number of cards
      */
-    int getActualSize();
+    int getCurrentSize();
 
     /**
      * Restart the deck when the match is over,

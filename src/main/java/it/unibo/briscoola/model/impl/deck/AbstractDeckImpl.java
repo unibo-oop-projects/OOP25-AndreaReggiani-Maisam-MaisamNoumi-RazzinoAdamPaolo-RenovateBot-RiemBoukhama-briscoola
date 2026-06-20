@@ -78,7 +78,7 @@ public abstract class AbstractDeckImpl<T extends Card> implements Deck<T> {
      * {@inheritDoc}
      */
     @Override
-    public final int getActualSize() {
+    public final int getCurrentSize() {
         return deckOfCards.size();
     }
 
