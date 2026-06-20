@@ -16,7 +16,7 @@ public final class BriscOOla {
      * Launches the application.
      *
      */
-    static void main() {
+    public static void main(final String[] args) {
 
             /*
              * final MenuController menuController = new MenuControllerImpl(initialMode, gameView);

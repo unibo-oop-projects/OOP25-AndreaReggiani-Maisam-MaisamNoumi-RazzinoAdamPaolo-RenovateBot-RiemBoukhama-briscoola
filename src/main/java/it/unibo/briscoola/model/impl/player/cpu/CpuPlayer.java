@@ -1,11 +1,11 @@
 package it.unibo.briscoola.model.impl.player.cpu;
 
+import java.util.Objects;
+
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.PlayStrategy;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 import it.unibo.briscoola.model.impl.player.PlayerImpl;
-
-import java.util.Objects;
 
 /**
  * Unextendable class that represent a singular CpuPlayer.

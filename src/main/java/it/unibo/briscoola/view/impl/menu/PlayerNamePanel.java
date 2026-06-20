@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.function.Consumer;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,7 +29,7 @@ public final class PlayerNamePanel extends JPanel {
     private static final int COMPONENT_WIDTH = 250;
     private static final int COMPONENT_HEIGHT = 40;
 
-    private static final int MAX_CHARACTERS_LIMIT = 15;
+    private static final int MAX_CHARACTERS_LIMIT = 10;
 
     private static final int GRIDX0 = 0;
     private static final int GRIDY0 = 0;
