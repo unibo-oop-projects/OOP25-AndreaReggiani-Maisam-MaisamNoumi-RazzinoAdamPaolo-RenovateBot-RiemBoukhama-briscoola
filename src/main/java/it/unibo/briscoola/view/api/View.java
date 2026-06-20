@@ -1,6 +1,7 @@
 package it.unibo.briscoola.view.api;
 
 import java.util.List;
+
 import it.unibo.briscoola.controller.api.GameController;
 import it.unibo.briscoola.controller.api.MenuController;
 import it.unibo.briscoola.model.api.card.Card;
@@ -88,7 +89,8 @@ public interface View {
      * @param playerValue the value of the card played by the player
      * @param cpuSeed the seed of the card played by the CPU
      * @param cpuValue the value of the card played by the CPU
+     * @param deckSize the current number of cards in the deck
      */
-    void updateTable(String playerSeed, String playerValue, String cpuSeed, String cpuValue);
+    void updateTable(String playerSeed, String playerValue, String cpuSeed, String cpuValue, final int deckSize);
 
 }
