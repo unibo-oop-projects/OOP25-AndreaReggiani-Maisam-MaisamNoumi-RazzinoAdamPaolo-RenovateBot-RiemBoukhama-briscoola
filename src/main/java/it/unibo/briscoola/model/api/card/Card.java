@@ -5,6 +5,8 @@ import it.unibo.briscoola.model.api.attributes.CardValue;
 
 /**
  * Represents the interface of the generic card of the game.
+ * 
+ * @author Andrea Reggiani
  */
 public interface Card {
 

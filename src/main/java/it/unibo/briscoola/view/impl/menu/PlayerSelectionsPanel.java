@@ -15,8 +15,12 @@ import javax.swing.JPanel;
 /**
  * Panel inside the startup sequence that allows the user to select
  * the number of players for the match.
+ * 
+ * @author Andrea Reggiani
  */
-public class PlayerSelectionsPanel extends JPanel {
+public final class PlayerSelectionsPanel extends JPanel {
+
+    private static final long serialVersionUID = 1L;
 
     private static final int INSET_PADDING = 15;
     private static final int FONT_SIZE = 70;
@@ -56,12 +60,12 @@ public class PlayerSelectionsPanel extends JPanel {
         btn2Players.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         btn2Players.addActionListener(e -> chosePlayer.accept(TWO_PLAYERS_MODE)); 
         gbc.gridy = GRIDY1;
-        add(btn2Players, gbc);
+        this.add(btn2Players, gbc);
 
         final JButton btnQuit = new JButton("Back");
         btnQuit.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         btnQuit.addActionListener(backClicked);
         gbc.gridy = GRIDY2;
-        add(btnQuit, gbc);
+        this.add(btnQuit, gbc);
     }
 }

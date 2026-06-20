@@ -7,6 +7,8 @@ import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 
 /**
  * Interface representing a player in the Briscola game.
+ * 
+ * @author Riem Boukhama
  */
 public interface Player {
 

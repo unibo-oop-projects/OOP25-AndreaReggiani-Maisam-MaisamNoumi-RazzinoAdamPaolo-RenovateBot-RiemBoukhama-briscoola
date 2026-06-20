@@ -14,6 +14,8 @@ import java.util.function.BiConsumer;
  * Screen is the component that manages the configuration before starting the game.
  * Uses a {@link CardLayout} to change between the main menu, the player count selection,
  * and the difficulty selection panels.
+ * 
+ * @author Andrea Reggiani
  */
 public final class StartScreen extends JPanel {
 
@@ -54,10 +56,9 @@ public final class StartScreen extends JPanel {
 
         final JPanel playerSelection = new PlayerSelectionsPanel(
             num -> {
-                this.temporarySelectedPlayers = num; 
-                cardLayout.show(this, DIFFICULTY_SELECTION); 
-
-            }, 
+                this.temporarySelectedPlayers = num;
+                cardLayout.show(this, DIFFICULTY_SELECTION);
+            },
             e -> cardLayout.show(this, MAIN_MENU)
         );
 

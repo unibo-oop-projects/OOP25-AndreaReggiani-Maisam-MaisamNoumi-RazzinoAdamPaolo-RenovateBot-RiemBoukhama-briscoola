@@ -4,7 +4,9 @@ package it.unibo.briscoola.model.api.attributes;
  * in Briscola the cards are going from 1 to 7
  * after there are jack, horse, king
  * the value level are 2,4,5,6,7,jack,horse,king,tree,ace
- * card(valuePoints,valueHierarchy.
+ * card(valuePoints,valueHierarchy).
+ * 
+ * @author Andrea Reggiani
  */
 public enum CardValue {
 

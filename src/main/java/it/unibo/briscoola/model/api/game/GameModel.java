@@ -112,7 +112,7 @@ public interface GameModel {
     RoundStateImpl getCurrentRoundState();
 
     /**
-     * Returns the {@link Difficulty} of the game model.
+     * Returns the {@link Difficulty} of the gamemodel.
      *
      * @return the {@link Difficulty} of the game
      */

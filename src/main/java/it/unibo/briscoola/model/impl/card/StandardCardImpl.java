@@ -8,6 +8,8 @@ import java.util.Objects;
 
 /**
  * Implementation of {@link Card} interface.
+ * 
+ * @author Andrea Reggiani
  */
 public class StandardCardImpl implements Card {
 

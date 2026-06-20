@@ -2,6 +2,8 @@ package it.unibo.briscoola.model.api.attributes;
 
 /**
  * Represents the four seeds of the cards.
+ * 
+ * @author Andrea Reggiani
  */
 public enum CardSeed {
 

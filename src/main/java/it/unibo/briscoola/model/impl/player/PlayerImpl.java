@@ -10,6 +10,8 @@ import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 
 /**
  * Implementazion of {@link  Player} interface.
+ * 
+ * @author Riem Boukhama
  */
 public class PlayerImpl implements Player {
 

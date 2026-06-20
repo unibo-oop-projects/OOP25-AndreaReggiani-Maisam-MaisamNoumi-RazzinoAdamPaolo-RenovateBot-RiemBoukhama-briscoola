@@ -8,6 +8,8 @@ import it.unibo.briscoola.view.api.popup.Popups;
 
 /**
  * Interface View for the graphic setting.
+ * 
+ * @author Andrea Reggiani
  */
 public interface View {
 
@@ -60,6 +62,13 @@ public interface View {
     void displayMessage(Popups type, String message);
 
     /**
+     * Returns an unmodifiable list of the player hand component views.
+     * 
+     * @return the hand component views
+     */
+    List<CardView> getPlayerHandCards();
+
+    /**
      * Updates the graphical representation of the card.
      * 
      * @param seed the seed of the card
@@ -81,4 +90,5 @@ public interface View {
      * @param cpuValue the value of the card played by the CPU
      */
     void updateTable(String playerSeed, String playerValue, String cpuSeed, String cpuValue);
+
 }

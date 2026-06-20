@@ -17,30 +17,32 @@ import it.unibo.briscoola.model.impl.game.GameBuilderImpl;
 import java.util.List;
 
 /**
- * implementation of the MenuConroller
+ * implementation of the MenuController
  * This class has the role to handle the initial setUp
  * and starts the match.
+ * 
+ * @author Andrea Reggiani
  */
-public class MenuControllerImpl implements MenuController {
+public final class MenuControllerImpl implements MenuController {
 
     private static final int MAX_PLAYERS = 2;
-    private final View view;
+
+    /*
+     * private final View view;
+     */
 
     /**
-     * Constructs a new MenuControllerImpl.
-     * 
-     * @param model the game model istance
-     * @param view the application view
+     * Constructs a new {@code MenuControllerImpl}.
      */
-    public MenuControllerImpl(final GameModel model, final View view) {
-        this.view = view;
+    public MenuControllerImpl() {
+        super();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void startGame(final int numPlayers, final Difficulty difficulty) {
+    public void startGame(final int numPlayers, final Difficulty difficulty, final View view) {
         if (numPlayers != MAX_PLAYERS) {
             throw new IllegalArgumentException("Il gioco supporta solo modalità a 2 giocatori");
         }
@@ -55,24 +57,24 @@ public class MenuControllerImpl implements MenuController {
             builder.addPlayer();
         }
         final GameModel model = builder.build();
-
         model.startMatch();
-        this.view.initGame(); 
+
+        view.initGame(); 
 
         final Player human = model.getCurrentPlayer(); 
-        this.view.updateHand(0, human.getHand());
+        view.updateHand(0, human.getHand());
 
         if (model.getBriscolaSeed().isPresent()) { 
             final String briscolaSeedStr = model.getBriscolaSeed().get().getCardSeed().name();
             final String briscolaValueStr = model.getBriscolaSeed().get().getCardValue().name();
 
-            if (this.view instanceof GameViewImpl gameView) {
+            if (view instanceof GameViewImpl gameView) {
                 gameView.updateBriscola(briscolaSeedStr, briscolaValueStr);
             }
         }
 
-        final GameController gameController = new GameControllerImpl(model, this.view);
-        this.view.setGameController(gameController);
+        final GameController gameController = new GameControllerImpl(model, view);
+        view.setGameController(gameController);
         gameController.startGame();
     }
 

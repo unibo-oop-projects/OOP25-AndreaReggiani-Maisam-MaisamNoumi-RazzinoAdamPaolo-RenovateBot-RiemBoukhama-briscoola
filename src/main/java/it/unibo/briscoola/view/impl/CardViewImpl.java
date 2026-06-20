@@ -17,6 +17,9 @@ import it.unibo.briscoola.view.api.CardView;
 
 /**
  * Implementation of the {@link CardView} representing a single card in the user interface.
+ * 
+ * @author Riem Boukhama
+ * @author Maisam Noumi
  */
 public final class CardViewImpl extends JPanel implements CardView {
 

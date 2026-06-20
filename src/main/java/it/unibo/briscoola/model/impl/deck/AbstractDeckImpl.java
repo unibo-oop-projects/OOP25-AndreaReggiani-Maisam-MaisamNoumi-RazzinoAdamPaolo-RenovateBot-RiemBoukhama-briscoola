@@ -12,12 +12,14 @@ import it.unibo.briscoola.model.api.deck.Deck;
  * Provides the basic logic for drawing, shuffling,
  * and querying the deck of cards.
  *
+ * @author Andrea
+ *
  * @param <T> the type of {@link Card} handled by the deck
  */
 public abstract class AbstractDeckImpl<T extends Card> implements Deck<T> {
 
     private final List<T> deckOfCards;
-    private Card briscolaTemporanea;
+    private T tempBriscola;
 
     /**
      * Constructs an empty abstract deck initialized with an ArrayList.
@@ -63,13 +65,12 @@ public abstract class AbstractDeckImpl<T extends Card> implements Deck<T> {
     @Override
     public final Optional<T> getBriscolaSeed() {
         if (deckOfCards.isEmpty()) {
-            return Optional.ofNullable((T) briscolaTemporanea);
+            return Optional.ofNullable(tempBriscola);
         } else {
-            if (briscolaTemporanea == null) {
-                this.briscolaTemporanea = this.deckOfCards.getLast();
+            if (tempBriscola == null) {
+                this.tempBriscola = this.deckOfCards.getLast();
             }
-            return Optional.of((T) briscolaTemporanea);
-
+            return Optional.of(tempBriscola);
         }
     }
 

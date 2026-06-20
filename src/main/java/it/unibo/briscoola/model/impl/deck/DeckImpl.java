@@ -9,6 +9,8 @@ import it.unibo.briscoola.model.impl.card.StandardCardImpl;
  * Concrete implementation of a deck of cards.
  * This class extends {@link AbstractDeckImpl} and generates the deck by combining
  * all the seeds and values.
+ * 
+ * @author Andrea Reggiani
  */
 public class DeckImpl extends AbstractDeckImpl<Card> {
 

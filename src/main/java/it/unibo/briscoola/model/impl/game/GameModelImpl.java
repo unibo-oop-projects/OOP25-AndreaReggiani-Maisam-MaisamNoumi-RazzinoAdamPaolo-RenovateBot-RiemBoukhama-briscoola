@@ -29,7 +29,7 @@ public class GameModelImpl implements GameModel {
      * 
      * @param players the list of players partecipating in the match.
      * @param deck the game deck to be used for the match.
-     * @param difficulty {@link Difficulty} of the CPU
+     * @param difficulty the difficulty level of the game.
      */
     public GameModelImpl(final List<Player> players, final Deck<Card> deck, final Difficulty difficulty) {
         this.players = new ArrayList<>(players);
@@ -45,7 +45,6 @@ public class GameModelImpl implements GameModel {
     private void init() {
         this.assignBriscola();
         this.dealInitialCards();
-
     }
 
     /** 

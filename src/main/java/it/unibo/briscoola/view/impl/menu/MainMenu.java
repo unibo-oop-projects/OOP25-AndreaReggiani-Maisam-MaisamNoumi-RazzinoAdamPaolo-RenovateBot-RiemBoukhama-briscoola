@@ -14,8 +14,12 @@ import javax.swing.JPanel;
 /**
  * Main menu panel representing the initial welcome screen.
  * Contains the game title and the core interaction buttons to play or exit.
+ * 
+ * @author Andrea Reggiani
  */
-public class MainMenu extends JPanel {
+public final class MainMenu extends JPanel {
+
+    private static final long serialVersionUID = 1L;
 
     private static final int INSET_PADDING = 15;
     private static final int FONT_SIZE = 70;
