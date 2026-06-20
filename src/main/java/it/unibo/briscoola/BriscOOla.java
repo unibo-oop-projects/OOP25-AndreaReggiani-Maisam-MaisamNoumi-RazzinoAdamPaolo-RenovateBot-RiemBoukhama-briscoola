@@ -14,10 +14,9 @@ public final class BriscOOla {
 
     /**
      * Launches the application.
-     * 
-     * @param args a string with the movie/series name.
+     *
      */
-    public static void main(final String[] args) {
+    static void main() {
 
             /*
              * final MenuController menuController = new MenuControllerImpl(initialMode, gameView);

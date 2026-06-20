@@ -60,9 +60,6 @@ class MenuControllerTest {
                                         final String cpuSeedTest, final String cpuValueTest) { }
 
             @Override
-            public void triggerPopup(final Popups type, final String message) { }
-
-            @Override
             public List<CardView> getPlayerHandCards() {
                 return List.of();
             }

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.io.Serial;
 import java.net.URL;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,6 +19,7 @@ import javax.swing.SwingConstants;
  */
 public final class PileView extends JPanel {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final int PANEL_WIDTH = 150;
@@ -85,11 +87,7 @@ public final class PileView extends JPanel {
      * @param count the new number of the cards won to show
      */
     public void updateCount(final int count) {
-        if (count > MIN_CARDS_VISIBLE) {
-            this.imageLabel.setVisible(true);
-        } else {
-            this.imageLabel.setVisible(false);
-        }
+        this.imageLabel.setVisible(count > MIN_CARDS_VISIBLE);
         this.labelForCount.setText(String.valueOf(count));
     }
 }

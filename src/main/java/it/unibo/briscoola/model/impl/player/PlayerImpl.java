@@ -33,10 +33,10 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Constructor that creates a new {@link CpuPlayer} based
+     * Constructor that creates a new {@link Player} based
      * on the parameter cpu player.
      *
-     * @param player {@link CpuPlayer} to copy
+     * @param player {@link Player} to copy
      */
     public PlayerImpl(final Player player) {
         this.id = player.getId();
