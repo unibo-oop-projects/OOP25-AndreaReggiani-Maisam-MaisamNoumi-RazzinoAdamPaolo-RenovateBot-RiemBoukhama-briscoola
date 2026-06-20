@@ -426,28 +426,13 @@ public final class GameViewImpl extends JFrame implements View {
 
         this.deckLabel.setVisible(deckSize > 0);
 
-        if (deckSize > 0) {
-            
-            final String imagePath;
-            
-            if (deckSize > 30) {
-                imagePath = "/cards/deck.png";
-            } else if (deckSize > 20) {
-                imagePath = "/cards/half-deck.png";
-            } else if (deckSize > 10) {
-                imagePath = "/cards/small-deck.png";
-            } else if (deckSize > 1) {
-                imagePath = "/cards/smaller-deck.png";
-            } else {
-                imagePath = "/cards/backside.png";
-            }
+       final String imagePath = "/cards/deck.png";
+    
+        final URL deckUrl = getClass().getResource(imagePath);
 
-            final URL deckUrl = getClass().getResource(imagePath);
-
-            final ImageIcon deckIcon = new ImageIcon(deckUrl);
-            final Image img = deckIcon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
-            this.deckLabel.setIcon(new ImageIcon(img));
-        }
+        final ImageIcon deckIcon = new ImageIcon(deckUrl);
+        final Image img = deckIcon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
+        this.deckLabel.setIcon(new ImageIcon(img));
 
         this.getContentPane().revalidate();
         this.getContentPane().repaint();

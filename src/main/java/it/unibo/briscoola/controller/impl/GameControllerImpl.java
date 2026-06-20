@@ -117,7 +117,7 @@ public class GameControllerImpl implements GameController {
                         view.updatePile(this.cpuPlayer.getPile().size(), false);
                     }
 
-                    view.updateTable(null, null, null, null,  this.model.getDeckSize()); 
+                    view.updateTable(null, null, null, null, this.model.getDeckSize());
                     updateAllHands();
                     manageTurn();
                 });

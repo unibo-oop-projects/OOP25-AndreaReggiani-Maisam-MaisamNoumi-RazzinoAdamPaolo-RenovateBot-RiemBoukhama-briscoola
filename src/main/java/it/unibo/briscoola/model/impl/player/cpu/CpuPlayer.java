@@ -1,11 +1,11 @@
 package it.unibo.briscoola.model.impl.player.cpu;
 
+import java.util.Objects;
+
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.PlayStrategy;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 import it.unibo.briscoola.model.impl.player.PlayerImpl;
-
-import java.util.Objects;
 
 /**
  * Unextendable class that represent a singular CpuPlayer.
@@ -24,8 +24,7 @@ public final class CpuPlayer extends PlayerImpl {
      * @param strategy Strategy to adapt based on the {@link StrategyFactory}
      */
     public CpuPlayer(final int id, final PlayStrategy strategy) {
-        final String name = "Cpu";
-        super(id, name);
+        super(id, "Cpu");
         this.strategy = strategy;
     }
 
