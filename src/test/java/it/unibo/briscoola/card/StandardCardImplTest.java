@@ -14,7 +14,7 @@ import it.unibo.briscoola.model.impl.card.StandardCardImpl;
  * 
  * @author Andrea Reggiani
  */
-public class StandardCardImplTest {
+class StandardCardImplTest {
 
     @Test
     void testCardCreationAndAttributes() {

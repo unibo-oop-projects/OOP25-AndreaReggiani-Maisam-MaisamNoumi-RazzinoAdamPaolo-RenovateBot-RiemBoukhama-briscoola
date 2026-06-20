@@ -7,9 +7,9 @@ import it.unibo.briscoola.model.api.card.Card;
 /**
  * Interface of the Deck of the game, or pile of card not used.
  * 
- * @param <T> type of the vcards contained in the deck
- * 
  * @author Andrea Reggiani
+ * 
+ * @param <T> type of the vcards contained in the deck
  */
 public interface Deck<T extends Card> {
 

@@ -16,9 +16,11 @@ import it.unibo.briscoola.model.impl.deck.DeckImpl;
  * 
  * @author Andrea Reggiani
  */
-public class DeckImplTest {
+class DeckImplTest {
 
-    /*A complete deck of Italian Briscola contains 4 suits x 10 values ​​= 40 cards */
+    /*
+     * a deck of Briscola contains 4 seeds x 10 values ​: 40 cards 
+     */
     private static final int EXPECTED_NUM_CARDS = 40;
 
     private Deck<Card> testDeck;
@@ -65,7 +67,7 @@ public class DeckImplTest {
         assertEquals(EXPECTED_NUM_CARDS, cardsDrawn);
 
         /*
-         * Una volta terminato, pescare ulteriormente deve restituire un Optional vuoto
+         * Once done, more drawing should return an empty Optional
          */
         final Optional<Card> emptyDraw = this.testDeck.draw();
         assertFalse(emptyDraw.isPresent());
