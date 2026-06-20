@@ -17,6 +17,7 @@ import it.unibo.briscoola.view.api.CardView;
 
 /**
  * Implementation of the {@link CardView} representing a single card in the user interface.
+ * It extends {@link JPanel} to be easily integrated into a Swing app.
  * 
  * @author Riem Boukhama
  * @author Maisam Noumi
@@ -35,7 +36,7 @@ public final class CardViewImpl extends JPanel implements CardView {
     private final JButton cardButton;
 
     /**
-     * Constructs a new CardViewImpl.
+     * Constructs a new CardViewImpl, initializing its layout, dimensions and borders.
      */
     public CardViewImpl() {
         setLayout(new BorderLayout());
