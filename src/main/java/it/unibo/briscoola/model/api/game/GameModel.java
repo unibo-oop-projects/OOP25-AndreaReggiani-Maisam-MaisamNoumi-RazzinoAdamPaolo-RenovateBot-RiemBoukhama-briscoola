@@ -124,4 +124,11 @@ public interface GameModel {
      * @return the {@link Difficulty} of the game.
      */
     Difficulty getDifficulty();
+
+    /**
+     * Returns the number of cards remaining in the deck.
+     *
+     * @return the deck size.
+     */
+    int getDeckSize();
 }

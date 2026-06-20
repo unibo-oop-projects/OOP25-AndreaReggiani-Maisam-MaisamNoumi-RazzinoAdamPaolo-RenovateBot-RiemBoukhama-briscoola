@@ -206,4 +206,12 @@ public class GameModelImpl implements GameModel {
     public Difficulty getDifficulty() {
         return this.difficulty;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getDeckSize() {
+        return this.deck.getCurrentSize(); 
+    }
 }
