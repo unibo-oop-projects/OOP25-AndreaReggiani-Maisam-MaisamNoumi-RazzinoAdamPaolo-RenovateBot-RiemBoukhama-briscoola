@@ -1,5 +1,6 @@
 package it.unibo.briscoola.view.impl.popup;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.briscoola.controller.impl.utils.Pair;
 import it.unibo.briscoola.view.api.popup.PopupFactory;
 import it.unibo.briscoola.view.api.popup.Popups;
@@ -64,6 +65,7 @@ public class PopupFactoryImpl implements PopupFactory {
      * @param root {@link JRootPane} owner of the {@link Popup}
      * @param leaderboardSupplier {@link Supplier} to get the leaderboard list
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "JRootPane is a required external UI layout component context and cannot be cloned.")
     public PopupFactoryImpl(final JRootPane root,
                             final Supplier<List<Pair<String, String>>> leaderboardSupplier) {
         this.root = root;
@@ -233,7 +235,6 @@ public class PopupFactoryImpl implements PopupFactory {
                     this.isShowing = false;
                     final Window frame = SwingUtilities.getWindowAncestor(root);
                     frame.dispose();
-                    System.exit(0);
                 }
         );
         contentPane.add(exit);

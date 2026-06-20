@@ -74,7 +74,7 @@ public final class GameViewImpl extends JFrame implements View {
 
     private final PileView playerPile = new PileView("Player");
     private final PileView cpuPile = new PileView("CPU");
-    private final PopupFactory popup = new PopupFactoryImpl(GameViewImpl.this.getRootPane(),
+    private final transient PopupFactory popup = new PopupFactoryImpl(GameViewImpl.this.getRootPane(),
             () -> this.menuController != null ? this.menuController.getLeaderboardDate() : List.of());
 
     private CardViewImpl briscolaCardView;
