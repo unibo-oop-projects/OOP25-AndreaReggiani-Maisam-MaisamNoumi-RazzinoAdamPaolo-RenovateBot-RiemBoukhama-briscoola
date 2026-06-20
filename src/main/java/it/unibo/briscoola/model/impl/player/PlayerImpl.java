@@ -16,6 +16,7 @@ import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 public class PlayerImpl implements Player {
 
     private final int id;
+    private final String name;
     private final List<Card> hand;
     private final List<Card> pile;
     private int points;
@@ -25,8 +26,9 @@ public class PlayerImpl implements Player {
      *
      * @param id Id assigned to the player
      */
-    public PlayerImpl(final int id) {
+    public PlayerImpl(final int id, final String name) {
         this.id = id;
+        this.name = name;
         this.points = 0;
         this.hand = new ArrayList<>();
         this.pile = new ArrayList<>();
@@ -40,6 +42,7 @@ public class PlayerImpl implements Player {
      */
     public PlayerImpl(final Player player) {
         this.id = player.getId();
+        this.name = player.getName();
         this.points = player.getPoints();
         this.hand = new ArrayList<>(player.getHand());
         this.pile = new ArrayList<>(player.getPile());
@@ -116,6 +119,14 @@ public class PlayerImpl implements Player {
     @Override
     public int getId() {
         return this.id;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name;
     }
 
     /**
