@@ -92,7 +92,7 @@ public class PopupFactoryImpl implements PopupFactory {
 
     private Popup roundWinnerPopup(final String message) {
         final Popup[] localPopup = new Popup[1];
-        final int codePoint = 1096;
+        final int codePoint = 127941;
         final String trophy = new String(Character.toChars(codePoint));
         final JComponent contentPane = new JPanel(new GridLayout(this.rows, this.cols, this.hGap, this.vGap));
         contentPane.setPreferredSize(new java.awt.Dimension(this.width, this.height));
@@ -137,7 +137,7 @@ public class PopupFactoryImpl implements PopupFactory {
 
     private Popup endGamePopup(final String message) {
         final Popup[] localPopupReference = new Popup[1];
-        final int codePoint = 1098;
+        final int codePoint = 127942;
         final String trophy = new String(Character.toChars(codePoint));
         final JComponent contentPane = new JPanel(new GridLayout(this.rows, this.cols, this.hGap, this.vGap));
         contentPane.setPreferredSize(new java.awt.Dimension(this.width, this.height));
