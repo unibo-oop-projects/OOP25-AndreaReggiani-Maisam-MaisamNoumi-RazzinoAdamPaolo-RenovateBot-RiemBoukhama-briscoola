@@ -70,6 +70,11 @@ public interface Player {
     int getId();
 
     /**
+     * @return player's name
+     */
+    String getName();
+
+    /**
      * @return player's current points
      */
     int getPoints();

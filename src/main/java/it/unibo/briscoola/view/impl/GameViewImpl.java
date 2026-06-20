@@ -28,9 +28,9 @@ import it.unibo.briscoola.controller.api.MenuController;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.view.api.CardView;
 import it.unibo.briscoola.view.api.View;
+import it.unibo.briscoola.view.api.popup.PopupFactory;
 import it.unibo.briscoola.view.api.popup.Popups;
 import it.unibo.briscoola.view.impl.popup.PopupFactoryImpl;
-import it.unibo.briscoola.view.api.popup.PopupFactory;
 
 /**
  * Implementazion of {@link  View} interface.
@@ -68,6 +68,7 @@ public final class GameViewImpl extends JFrame implements View {
     private static final int FALLBACK_G = 149;
     private static final int FALLBACK_B = 237;
 
+    final JLabel deckLabel = new JLabel();
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel container = new JPanel(cardLayout);
 
@@ -209,28 +210,27 @@ public final class GameViewImpl extends JFrame implements View {
         final JPanel deckBriscolaPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, FLOW_GAP_DECK, 0));
         deckBriscolaPanel.setOpaque(false);
 
-        final JLabel deckLabel = new JLabel();
         final URL deckUrl = getClass().getResource("/cards/deck.png");
 
         if (deckUrl != null) {
             final ImageIcon deckIcon = new ImageIcon(deckUrl);
 
             final Image img = deckIcon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
-            deckLabel.setIcon(new ImageIcon(img));
+            this.deckLabel.setIcon(new ImageIcon(img));
         } else {
 
-            deckLabel.setText("Mazzo");
-            deckLabel.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
-            deckLabel.setOpaque(true);
-            deckLabel.setBackground(new Color(FALLBACK_R, FALLBACK_G, FALLBACK_B));
-            deckLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            deckLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+            this.deckLabel.setText("Mazzo");
+            this.deckLabel.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
+            this.deckLabel.setOpaque(true);
+            this.deckLabel.setBackground(new Color(FALLBACK_R, FALLBACK_G, FALLBACK_B));
+            this.deckLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            this.deckLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         }
 
         briscolaCardView = new CardViewImpl();
         briscolaCardView.renderCard(null, null);
 
-        deckBriscolaPanel.add(deckLabel);
+        deckBriscolaPanel.add(this.deckLabel);
         deckBriscolaPanel.add(briscolaCardView);
 
         westArea.add(deckBriscolaPanel);
@@ -402,7 +402,7 @@ public final class GameViewImpl extends JFrame implements View {
      * {@inheritDoc}
      */
     @Override
-    public void updateTable(final String playerSeed, final String playerValue, final String cpuSeed, final String cpuValue) {
+    public void updateTable(final String playerSeed, final String playerValue, final String cpuSeed, final String cpuValue, final int deckSize) {
 
         /*
          * updates the graphic cards on the table of the player
@@ -422,6 +422,31 @@ public final class GameViewImpl extends JFrame implements View {
             this.cpuPlayedCardView.setVisible(true);
         } else {
             this.cpuPlayedCardView.setVisible(false);
+        }
+
+        this.deckLabel.setVisible(deckSize > 0);
+
+        if (deckSize > 0) {
+            
+            final String imagePath;
+            
+            if (deckSize > 30) {
+                imagePath = "/cards/deck.png";
+            } else if (deckSize > 20) {
+                imagePath = "/cards/half-deck.png";
+            } else if (deckSize > 10) {
+                imagePath = "/cards/small-deck.png";
+            } else if (deckSize > 1) {
+                imagePath = "/cards/smaller-deck.png";
+            } else {
+                imagePath = "/cards/backside.png";
+            }
+
+            final URL deckUrl = getClass().getResource(imagePath);
+
+            final ImageIcon deckIcon = new ImageIcon(deckUrl);
+            final Image img = deckIcon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
+            this.deckLabel.setIcon(new ImageIcon(img));
         }
 
         this.getContentPane().revalidate();
