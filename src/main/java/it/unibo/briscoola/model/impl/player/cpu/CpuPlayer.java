@@ -24,7 +24,8 @@ public final class CpuPlayer extends PlayerImpl {
      * @param strategy Strategy to adapt based on the {@link StrategyFactory}
      */
     public CpuPlayer(final int id, final PlayStrategy strategy) {
-        super(id);
+        final String name = "Cpu";
+        super(id, name);
         this.strategy = strategy;
     }
 

@@ -80,7 +80,7 @@ public class GameControllerImpl implements GameController {
                 final String leaderboardFile = "leaderboard.json";
                 final ScoreFileManager manager = new ScoreFileManagerImpl(leaderboardFile);
                 final Leaderboard leaderboard = new LeaderboardImpl(manager);
-                leaderboard.addEntry(new ScoreEntryImpl("Player", (int) (humanPoints * this.model.getDifficulty().getValue())));
+                leaderboard.addEntry(new ScoreEntryImpl(humanPlayer.getName(), (int) (humanPoints * this.model.getDifficulty().getValue())));
                 leaderboard.saveScores();
                 finalMsg += "You Won!";
             } else if (cpuPoints > humanPoints) {
@@ -117,7 +117,7 @@ public class GameControllerImpl implements GameController {
                         view.updatePile(this.cpuPlayer.getPile().size(), false);
                     }
 
-                    view.updateTable(null, null, null, null); 
+                    view.updateTable(null, null, null, null, 0);
                     updateAllHands();
                     manageTurn();
                 });
@@ -204,7 +204,7 @@ public class GameControllerImpl implements GameController {
             cValue = card.getCardValue().name();
         }
 
-        view.updateTable(pSeed, pValue, cSeed, cValue);
+        view.updateTable(pSeed, pValue, cSeed, cValue, /*TODO*/0);
     }
 
     private void updateAllHands() {

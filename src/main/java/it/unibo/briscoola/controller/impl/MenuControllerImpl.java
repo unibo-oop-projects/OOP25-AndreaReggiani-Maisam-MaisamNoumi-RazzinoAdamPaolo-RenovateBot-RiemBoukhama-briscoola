@@ -50,7 +50,7 @@ public final class MenuControllerImpl implements MenuController {
             throw new IllegalArgumentException("La difficolta non puo essere nulla");
         }
 
-        final GameBuilderImpl builder = new GameBuilderImpl();
+        final GameBuilderImpl builder = new GameBuilderImpl(namePlayer);
         builder.setDifficulty(difficulty);
 
         for (int i = 1; i < MAX_PLAYERS; i++) {

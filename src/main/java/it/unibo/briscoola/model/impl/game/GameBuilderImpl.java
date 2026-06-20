@@ -31,9 +31,11 @@ public class GameBuilderImpl implements GameBuilder {
     /**
      * Basic constructor in which it instantiates the human
      * {@link Player} with the id equals to 0.
+     *
+     * @param name {@link String} of the player nickname
      */
-    public GameBuilderImpl() {
-        players.add(new PlayerImpl(id++));
+    public GameBuilderImpl(final String name) {
+        players.add(new PlayerImpl(id++, name));
     }
 
     /**
