@@ -26,8 +26,7 @@ public interface GameModel {
     /**
      * Provides the card currently designed as the Briscola.
      * 
-     * @return an Optional containg the Briscola card if present,
-     * otherwise an empty Optional.
+     * @return an Optional containg the Briscola card if present, otherwise an empty Optional.
      */
     Optional<Card> getBriscolaSeed();
 
