@@ -19,7 +19,7 @@ import java.awt.Window;
  *
  * @author Adam Paolo Razzino
  */
-public class RulesDialog extends JDialog {
+public final class RulesDialog extends JDialog {
 
     /**
      * Builds an element of {@link JDialog} over the parent Frame.
