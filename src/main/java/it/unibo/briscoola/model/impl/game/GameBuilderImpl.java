@@ -8,12 +8,10 @@ import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.deck.Deck;
 import it.unibo.briscoola.model.api.game.GameBuilder;
 import it.unibo.briscoola.model.api.game.GameModel;
-import it.unibo.briscoola.model.api.player.PlayStrategy;
 import it.unibo.briscoola.model.api.player.Player;
 import it.unibo.briscoola.model.impl.deck.DeckImpl;
 import it.unibo.briscoola.model.impl.player.PlayerImpl;
 import it.unibo.briscoola.model.impl.player.cpu.CpuPlayer;
-import it.unibo.briscoola.model.impl.player.cpu.StrategyFactory;
 
 /**
  * Builder class that allows a simple and fast creation of a {@link GameModel}
@@ -24,7 +22,6 @@ import it.unibo.briscoola.model.impl.player.cpu.StrategyFactory;
 public class GameBuilderImpl implements GameBuilder {
 
     private final List<Player> players = new ArrayList<>();
-    private PlayStrategy playStrategy;
     private int id;
     private Difficulty difficulty;
 

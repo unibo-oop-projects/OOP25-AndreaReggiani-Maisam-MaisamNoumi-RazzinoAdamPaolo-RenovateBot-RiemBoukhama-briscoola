@@ -10,7 +10,6 @@ import it.unibo.briscoola.model.impl.game.RoundPlay;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
 import it.unibo.briscoola.model.impl.player.PlayerImpl;
 import it.unibo.briscoola.model.impl.player.cpu.CpuPlayer;
-import it.unibo.briscoola.model.impl.player.cpu.StrategyFactory;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
