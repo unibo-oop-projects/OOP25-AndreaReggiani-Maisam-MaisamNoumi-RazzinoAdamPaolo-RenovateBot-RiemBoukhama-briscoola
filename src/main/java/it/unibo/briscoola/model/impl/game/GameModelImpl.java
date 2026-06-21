@@ -41,6 +41,25 @@ public class GameModelImpl implements GameModel {
         this.difficulty = difficulty;
     }
 
+    /*
+     * Picks the first card from the deck as the Briscola,
+     * determining the dominant seed for the match.
+     */
+    private void assignBriscola() {
+        this.briscolaCard = this.deck.getBriscolaSeed().orElseThrow();
+    }
+
+    /*
+     * Deals three initial cards to each player from the deck.
+     */
+    private void dealInitialCards() {
+        for (int i = 0; i < 3; i++) {
+            for (final Player p : players) {
+                p.receiveCard(deck.draw().orElseThrow());
+            }
+        }
+    }
+
     /**
      * Initializes the table state by assigning the Briscola card
      * and dealing the initial hand to the players.
@@ -65,26 +84,6 @@ public class GameModelImpl implements GameModel {
     @Override
     public Optional<Card> getBriscolaSeed() {
         return Optional.ofNullable(this.briscolaCard);
-    }
-
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public void assignBriscola() {
-        this.briscolaCard = this.deck.getBriscolaSeed().orElseThrow();
-    }
-
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public void dealInitialCards() {
-        for (int i = 0; i < 3; i++) {
-            for (final Player p : players) {
-                p.receiveCard(deck.draw().orElseThrow());
-            }
-        }
     }
 
     /** 

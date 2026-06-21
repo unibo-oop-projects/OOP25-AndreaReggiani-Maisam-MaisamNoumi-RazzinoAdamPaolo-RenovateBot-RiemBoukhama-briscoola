@@ -40,17 +40,6 @@ public interface GameModel {
     boolean isGameOver();
 
     /**
-     * Picks the first card from the deck as the Briscola,
-     * determining the dominant seed for the match.
-     */
-    void assignBriscola();
-
-    /**
-     * Deals three initial cards to each player from the deck.
-     */
-    void dealInitialCards();
-
-    /**
      * Allows players to draw a card from the deck after a trick.
      * If the deck is empty, the remaining players will not draw.
      * 
