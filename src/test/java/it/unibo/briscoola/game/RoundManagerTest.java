@@ -39,8 +39,8 @@ class RoundManagerTest {
     final void init() {
         this.playerList = new ArrayList<>(
                 List.of(
-                        new CpuPlayer(1, StrategyFactory.create(Difficulty.EASY)),
-                        new CpuPlayer(2, StrategyFactory.create(Difficulty.EASY))
+                        new CpuPlayer(1, Difficulty.EASY),
+                        new CpuPlayer(2, Difficulty.EASY)
                 )
         );
         this.ids = 3;
@@ -73,7 +73,7 @@ class RoundManagerTest {
         final int temporaryId = this.ids;
         this.ids++;
         assertThrows(IllegalArgumentException.class, () -> this.manager.playTurn(
-                new CpuPlayer(temporaryId, StrategyFactory.create(Difficulty.EASY)),
+                new CpuPlayer(temporaryId, Difficulty.EASY),
                 new StandardCardImpl(CardValue.FIVE, CardSeed.CUP)));
         assertEquals(this.playerList.getFirst(), this.manager.getCurrentPlayer());
         assertThrows(IllegalArgumentException.class, () -> this.manager.playTurn(

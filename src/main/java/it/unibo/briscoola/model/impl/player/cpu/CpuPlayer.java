@@ -2,6 +2,7 @@ package it.unibo.briscoola.model.impl.player.cpu;
 
 import java.util.Objects;
 
+import it.unibo.briscoola.model.api.attributes.Difficulty;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.PlayStrategy;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
@@ -21,11 +22,11 @@ public final class CpuPlayer extends PlayerImpl {
      * Constructor of a CPU player with its id and the strategy to follow.
      *
      * @param id id of the player
-     * @param strategy Strategy to adapt based on the {@link StrategyFactory}
+     * @param difficulty Difficulty of the strategy
      */
-    public CpuPlayer(final int id, final PlayStrategy strategy) {
+    public CpuPlayer(final int id, final Difficulty difficulty) {
         super(id, "Cpu");
-        this.strategy = strategy;
+        this.strategy = StrategyFactory.create(difficulty);
     }
 
     /**

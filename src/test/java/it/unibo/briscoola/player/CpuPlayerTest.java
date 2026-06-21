@@ -35,7 +35,7 @@ class CpuPlayerTest {
 
     @Test
     void testCopy() {
-        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.MEDIUM));
+        final Player cpu = new CpuPlayer(1, Difficulty.MEDIUM);
         init(cpu);
         final Player cpuCopy = cpu.copy();
         assertEquals(cpu, cpuCopy);
@@ -44,7 +44,7 @@ class CpuPlayerTest {
 
     @Test
     void easyStrategy() {
-        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.EASY));
+        final Player cpu = new CpuPlayer(1, Difficulty.EASY);
         final Card fictionalCard = new StandardCardImpl(CardValue.FIVE, CardSeed.CUP);
         final RoundStateImpl fictionalState = new RoundStateImpl(
                 List.of(
@@ -60,7 +60,7 @@ class CpuPlayerTest {
 
     @Test
     void mediumStrategyNoBriscola() {
-        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.MEDIUM));
+        final Player cpu = new CpuPlayer(1, Difficulty.MEDIUM);
         final Card fictionalCard = new StandardCardImpl(CardValue.THREE, CardSeed.COIN);
         final RoundStateImpl fictionalState = new RoundStateImpl(
                 List.of(
@@ -77,7 +77,7 @@ class CpuPlayerTest {
 
     @Test
     void mediumStrategyWithBriscola() {
-        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.MEDIUM));
+        final Player cpu = new CpuPlayer(1, Difficulty.MEDIUM);
         final Card fictionalCard = new StandardCardImpl(CardValue.THREE, CardSeed.STAFF);
         final RoundStateImpl fictionalState = new RoundStateImpl(
                 List.of(
@@ -93,7 +93,7 @@ class CpuPlayerTest {
 
     @Test
     void hardStrategy() {
-        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.HARD));
+        final Player cpu = new CpuPlayer(1, Difficulty.HARD);
         final Card fictionalCard1 = new StandardCardImpl(CardValue.THREE, CardSeed.COIN);
         final Card fictionalCard2 = new StandardCardImpl(CardValue.ACE, CardSeed.SWORD);
         final Card fictionalCard3 = new StandardCardImpl(CardValue.TWO, CardSeed.COIN);

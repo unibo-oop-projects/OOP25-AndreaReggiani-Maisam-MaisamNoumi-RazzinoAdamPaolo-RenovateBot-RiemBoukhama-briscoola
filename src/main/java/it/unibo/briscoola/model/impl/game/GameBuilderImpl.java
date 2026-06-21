@@ -36,8 +36,8 @@ public class GameBuilderImpl implements GameBuilder {
      */
     public GameBuilderImpl(final String name) {
         this.id = 0;
-        players.add(new PlayerImpl(id, name));
-        id++;
+        players.add(new PlayerImpl(this.id, name));
+        this.id++;
     }
 
     /**
@@ -46,7 +46,6 @@ public class GameBuilderImpl implements GameBuilder {
     @Override
     public GameBuilderImpl changeDifficulty(final Difficulty diff) {
         this.difficulty = diff;
-        this.playStrategy = StrategyFactory.create(diff);
         return this;
     }
 
@@ -55,8 +54,8 @@ public class GameBuilderImpl implements GameBuilder {
      */
     @Override
     public GameBuilderImpl addPlayer() {
-        this.players.add(new CpuPlayer(id, playStrategy));
-        id++;
+        this.players.add(new CpuPlayer(this.id, this.difficulty));
+        this.id++;
         return this;
     }
 
@@ -67,6 +66,6 @@ public class GameBuilderImpl implements GameBuilder {
     @Override
     public GameModel build() {
         final Deck<Card> deck = new DeckImpl();
-        return new GameModelImpl(players, deck, this.difficulty);
+        return new GameModelImpl(this.players, deck, this.difficulty);
     }
 }
