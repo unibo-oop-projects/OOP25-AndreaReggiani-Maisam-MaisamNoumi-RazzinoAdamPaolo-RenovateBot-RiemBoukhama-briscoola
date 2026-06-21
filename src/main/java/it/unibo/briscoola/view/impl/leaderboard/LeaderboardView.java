@@ -4,8 +4,16 @@ import it.unibo.briscoola.controller.impl.utils.Pair;
 import it.unibo.briscoola.view.api.leaderboard.Leaderboard;
 import it.unibo.briscoola.model.api.player.Player;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.List;
 
 /**
@@ -17,16 +25,20 @@ import java.util.List;
  *
  * @author Adam Paolo Razzino
  */
-public class LeaderboardView extends JPanel implements Leaderboard {
+public final class LeaderboardView extends JPanel implements Leaderboard {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Font TITLE_FONT = new Font("Arial", Font.BOLD, 22);
-    private static final Font LEADER_FONT = new Font("Arial", Font.BOLD, 16);
-    private static final Font REGULAR_FONT = new Font("Arial", Font.PLAIN, 16);
+    private static final String FONT_FAMILY = "Serif";
+    private static final Font TITLE_FONT = new Font(FONT_FAMILY, Font.BOLD, 22);
+    private static final Font LEADER_FONT = new Font(FONT_FAMILY, Font.BOLD, 16);
+    private static final Font REGULAR_FONT = new Font(FONT_FAMILY, Font.PLAIN, 16);
 
     private static final Color GOLD_BG = new Color(255, 215, 0);
     private static final Color ROW_BG = new Color(220, 220, 220);
+
+    private static final int VERTICAL_BORDER = 15;
+    private static final int HORIZONTAL_BORDER = 20;
 
     /**
      * Constructor of the LeaderboardView and displays the input in a
@@ -37,14 +49,14 @@ public class LeaderboardView extends JPanel implements Leaderboard {
     public LeaderboardView(final List<Pair<String, String>> scoreboard) {
         init();
 
-        JLabel titleLabel = new JLabel("LEADERBOARD", SwingConstants.CENTER);
+        final JLabel titleLabel = new JLabel("LEADERBOARD", SwingConstants.CENTER);
         titleLabel.setFont(TITLE_FONT);
         titleLabel.setForeground(Color.WHITE);
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
+        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(VERTICAL_BORDER, 0, VERTICAL_BORDER, 0));
         this.add(titleLabel);
 
-        for (int i = 0; i < scoreboard.size(); i++){
+        for (int i = 0; i < scoreboard.size(); i++) {
             final JLabel playerLabel = getJLabel(scoreboard, i);
 
             final JPanel rowPanel = new JPanel();
@@ -57,12 +69,12 @@ public class LeaderboardView extends JPanel implements Leaderboard {
         }
     }
 
-    private static JLabel getJLabel(final List<Pair<String, String>> scoreboard, int i) {
+    private static JLabel getJLabel(final List<Pair<String, String>> scoreboard, final int i) {
         final Pair<String, String> pair = scoreboard.get(i);
         final String text = (i + 1) + "° " + pair.x() + " - " + pair.y();
 
         final JLabel playerLabel = new JLabel(text, SwingConstants.CENTER);
-        playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerLabel.setAlignmentX(CENTER_ALIGNMENT);
         playerLabel.setOpaque(true);
 
         if (i == 0) {
@@ -71,24 +83,28 @@ public class LeaderboardView extends JPanel implements Leaderboard {
             playerLabel.setForeground(Color.BLACK);
             playerLabel.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(Color.ORANGE, 2),
-                    BorderFactory.createEmptyBorder(10, 20, 10, 20)
+                    BorderFactory.createEmptyBorder(10, HORIZONTAL_BORDER, 10, HORIZONTAL_BORDER)
             ));
         } else {
             playerLabel.setFont(REGULAR_FONT);
             playerLabel.setBackground(ROW_BG);
             playerLabel.setForeground(Color.BLACK);
-            playerLabel.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
+            playerLabel.setBorder(BorderFactory.createEmptyBorder(8, HORIZONTAL_BORDER, 8, HORIZONTAL_BORDER));
         }
         return playerLabel;
     }
 
-    private void init(){
+    private void init() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(Color.GRAY);
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
         final int screenRatio = 4;
-        this.setMinimumSize(new Dimension(toolkit.getScreenSize().width / screenRatio, toolkit.getScreenSize().height / screenRatio));
-        this.setPreferredSize(new Dimension(toolkit.getScreenSize().width / screenRatio, toolkit.getScreenSize().height / screenRatio));
+        this.setMinimumSize(new Dimension(
+                toolkit.getScreenSize().width / screenRatio,
+                toolkit.getScreenSize().height / screenRatio));
+        this.setPreferredSize(new Dimension(
+                toolkit.getScreenSize().width / screenRatio,
+                toolkit.getScreenSize().height / screenRatio));
     }
 
     /**

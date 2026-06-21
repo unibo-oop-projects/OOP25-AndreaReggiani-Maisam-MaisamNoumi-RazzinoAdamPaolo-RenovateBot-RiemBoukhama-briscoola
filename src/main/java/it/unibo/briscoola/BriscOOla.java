@@ -15,6 +15,7 @@ public final class BriscOOla {
     /**
      * Launches the application.
      *
+     * @param args possible input arguments
      */
     public static void main(final String[] args) {
 

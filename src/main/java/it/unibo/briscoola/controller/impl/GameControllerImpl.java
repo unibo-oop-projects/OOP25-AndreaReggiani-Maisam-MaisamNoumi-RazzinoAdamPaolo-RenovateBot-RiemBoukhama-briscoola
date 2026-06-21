@@ -75,7 +75,7 @@ public class GameControllerImpl implements GameController {
             final int humanPoints = this.humanPlayer != null ? this.humanPlayer.getPoints() : 0;
             final int cpuPoints = this.cpuPlayer != null ? this.cpuPlayer.getPoints() : 0;
 
-            final StringBuilder finalMsg = new StringBuilder("GAME OVER! ") ;
+            final StringBuilder finalMsg = new StringBuilder("GAME OVER! ");
             if (humanPoints > cpuPoints) {
                 final String leaderboardFile = "leaderboard.json";
                 final ScoreFileManager manager = new ScoreFileManagerImpl(leaderboardFile);

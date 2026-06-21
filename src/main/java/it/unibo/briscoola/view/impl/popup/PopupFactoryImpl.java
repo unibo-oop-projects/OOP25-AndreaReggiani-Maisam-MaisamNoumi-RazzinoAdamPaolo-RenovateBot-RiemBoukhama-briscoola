@@ -54,8 +54,6 @@ public class PopupFactoryImpl implements PopupFactory {
     private final Toolkit toolkit = Toolkit.getDefaultToolkit();
     private final int width = toolkit.getScreenSize().width / 7;
     private final int height = toolkit.getScreenSize().height / 3;
-    private int x;
-    private int y;
     private boolean isShowing;
 
     /**
@@ -105,7 +103,9 @@ public class PopupFactoryImpl implements PopupFactory {
         contentPane.setBorder(BorderFactory.createCompoundBorder(line, padding));
         contentPane.setBackground(new Color(BG_R, BG_G, BG_B));
         final JLabel trophyLabel = new JLabel(trophy, SwingConstants.CENTER);
-        final JLabel messageLabel = new JLabel("<html><div style='text-align: center;'>" + message + "</div></html>", SwingConstants.CENTER);
+        final JLabel messageLabel = new JLabel(
+                "<html><div style='text-align: center;'>" + message + "</div></html>",
+                SwingConstants.CENTER);
         trophyLabel.setSize(contentPane.getSize().width / 3, contentPane.getSize().height / 3);
         messageLabel.setSize(contentPane.getSize().width / 3, contentPane.getSize().height / 3);
         trophyLabel.setForeground(Color.WHITE);
@@ -120,6 +120,8 @@ public class PopupFactoryImpl implements PopupFactory {
         contentPane.add(trophyLabel);
         contentPane.add(messageLabel);
         contentPane.add(hideButton);
+        final int x;
+        final int y;
         if (root.isShowing()) {
             final java.awt.Point parentLocation = root.getLocationOnScreen();
             x = parentLocation.x + (root.getWidth() - contentPane.getPreferredSize().width) / POSITION_RATIO;
@@ -151,7 +153,9 @@ public class PopupFactoryImpl implements PopupFactory {
         contentPane.setBackground(new Color(BG_R, BG_G, BG_B));
         contentPane.setSize(toolkit.getScreenSize().width, toolkit.getScreenSize().height);
         final JLabel trophyLabel = new JLabel(trophy, SwingConstants.CENTER);
-        final JLabel messageLabel = new JLabel("<html><div style='text-align: center;'>" + message + "</div></html>", SwingConstants.CENTER);
+        final JLabel messageLabel = new JLabel(
+                "<html><div style='text-align: center;'>" + message + "</div></html>",
+                SwingConstants.CENTER);
         trophyLabel.setSize(contentPane.getSize().width / 3, contentPane.getSize().height / 3);
         messageLabel.setSize(contentPane.getSize().width / 3, contentPane.getSize().height / 3);
         trophyLabel.setForeground(Color.WHITE);
@@ -182,6 +186,8 @@ public class PopupFactoryImpl implements PopupFactory {
         contentPane.add(returnHome);
         contentPane.add(leaderboard);
         contentPane.add(exit);
+        final int x;
+        final int y;
         if (root.isShowing()) {
             final java.awt.Point parentLocation = root.getLocationOnScreen();
             x = parentLocation.x + (root.getWidth() - contentPane.getPreferredSize().width) / 2;
@@ -242,6 +248,8 @@ public class PopupFactoryImpl implements PopupFactory {
         contentPane.add(exit);
         contentPane.invalidate();
         final java.awt.Dimension actualSize = contentPane.getPreferredSize();
+        final int x;
+        final int y;
         if (root.isShowing()) {
             final java.awt.Point parentLocation = root.getLocationOnScreen();
             x = parentLocation.x + (root.getWidth() - actualSize.width) / 2;
