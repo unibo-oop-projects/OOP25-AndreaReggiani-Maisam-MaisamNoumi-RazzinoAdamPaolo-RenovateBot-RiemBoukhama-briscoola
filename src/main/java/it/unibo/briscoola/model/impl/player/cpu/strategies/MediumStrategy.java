@@ -3,6 +3,8 @@ package it.unibo.briscoola.model.impl.player.cpu.strategies;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+
+import it.unibo.briscoola.model.api.attributes.CardSeed;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.player.PlayStrategy;
 import it.unibo.briscoola.model.impl.game.RoundStateImpl;
@@ -20,17 +22,34 @@ public class MediumStrategy implements PlayStrategy {
      */
     @Override
     public int cardIndex(final List<Card> hand, final RoundStateImpl state) {
-        final Optional<Card> optionalCard = hand.stream()
-                .filter(card -> state.playedCards().stream()
-                        .allMatch(it -> card.getCardPower() > it.card().getCardPower()))
+        final Optional<Card> winningCard = hand.stream()
+                .filter(card -> beatsAllPlayedCards(card, state))
                 .findFirst();
-        if (optionalCard.isPresent()) {
-            return hand.indexOf(optionalCard.get());
+        if (winningCard.isPresent()) {
+            return hand.indexOf(winningCard.get());
         }
-        final Card worstCard = hand.stream()
-                .min(Comparator.comparingInt(Card::getCardPower))
-                .orElseThrow();
+        Optional<Card> worstCard = hand.stream()
+                .filter(card -> card.getCardSeed() != state.briscola())
+                .min(Comparator.comparingInt(Card::getCardPower));
 
-        return hand.indexOf(worstCard);
+        if(worstCard.isEmpty()){
+            worstCard = hand.stream()
+                    .min(Comparator.comparingInt(Card::getCardPower));
+        }
+
+        return hand.indexOf(worstCard.orElseThrow(
+                ()->new IllegalStateException("Card requested when hand is empty")));
+    }
+
+    private boolean beatsAllPlayedCards(final Card card, final RoundStateImpl state) {
+        final CardSeed briscola = state.briscola();
+        final CardSeed leadSeed = state.leadSeed().orElse(briscola);
+
+        if (card.getCardSeed() != briscola && card.getCardSeed() != leadSeed) {
+            return false;
+        }
+
+        return state.playedCards().stream()
+                .allMatch(played -> card.getCardPower() > played.card().getCardPower());
     }
 }
