@@ -101,14 +101,6 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public Card playCard(final Player player, final int index) {
-        return player.playCard(index);
-    }
-
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
     public boolean isGameOver() {
 
         if (!this.roundManager.getRoundState().playedCards().isEmpty()) {

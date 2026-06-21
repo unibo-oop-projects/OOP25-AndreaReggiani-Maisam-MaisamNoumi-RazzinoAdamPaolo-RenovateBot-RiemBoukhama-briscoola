@@ -48,15 +48,6 @@ public interface GameModel {
     void drawAfterTrick(List<Player> orderedPlayers);
 
     /**
-     * Plays a card from the specified player's hand based on its index.
-     * 
-     * @param player the {@link Player} who is playing the card.
-     * @param index is the position of the card in hand.
-     * @return the played {@link Card}.
-     */
-    Card playCard(Player player, int index);
-
-    /**
      * Provides the player whose in charge of the turn.
      * 
      * @return the {@link Player} currently in charge of the turn.
