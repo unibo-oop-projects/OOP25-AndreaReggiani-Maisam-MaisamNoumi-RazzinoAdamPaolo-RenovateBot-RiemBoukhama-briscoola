@@ -37,6 +37,9 @@ public final class LeaderboardView extends JPanel implements Leaderboard {
 
     private static final Color GOLD_BG = new Color(255, 215, 0);
     private static final Color ROW_BG = new Color(220, 220, 220);
+    private static final int BG_R = 30;
+    private static final int BG_G = 100;
+    private static final int BG_B = 72;
 
     private static final int VERTICAL_BORDER = 15;
     private static final int HORIZONTAL_BORDER = 20;
@@ -68,7 +71,7 @@ public final class LeaderboardView extends JPanel implements Leaderboard {
             final JLabel playerLabel = getJLabel(scoreboardList, i);
             final JPanel rowPanel = new JPanel();
             rowPanel.setLayout(new BoxLayout(rowPanel, BoxLayout.Y_AXIS));
-            rowPanel.setBackground(Color.GRAY);
+            rowPanel.setBackground(new Color(BG_R, BG_G, BG_B));
             rowPanel.add(playerLabel);
             rowPanel.setBorder(BorderFactory.createEmptyBorder(4, 10, 4, 10));
             this.add(rowPanel);
@@ -103,7 +106,7 @@ public final class LeaderboardView extends JPanel implements Leaderboard {
 
     private void init() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBackground(Color.GRAY);
+        this.setBackground(new Color(BG_R, BG_G, BG_B));
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
         final int screenRatio = 4;
         this.setMinimumSize(new Dimension(
