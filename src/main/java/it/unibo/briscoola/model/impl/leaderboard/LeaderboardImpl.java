@@ -37,7 +37,7 @@ public class LeaderboardImpl implements Leaderboard {
      */
     public LeaderboardImpl(final ScoreFileManager manager) {
         this.list = new ArrayList<>(manager.load());
-        this.manager = manager;
+        this.manager = Objects.requireNonNull(manager, "manager");
     }
 
     /**

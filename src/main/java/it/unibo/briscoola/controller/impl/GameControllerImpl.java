@@ -1,6 +1,7 @@
 package it.unibo.briscoola.controller.impl;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.SwingUtilities;
 
@@ -44,8 +45,8 @@ public class GameControllerImpl implements GameController {
      * @param view  the graphical interface of the game
      */
     public GameControllerImpl(final GameModel model, final View view) {
-        this.model = model;
-        this.view = view;
+        this.model = Objects.requireNonNull(model, "Gamemodel for GameController is null");
+        this.view = Objects.requireNonNull(view, "View for GameController is null");
         this.view.setGameController(this);
     }
 

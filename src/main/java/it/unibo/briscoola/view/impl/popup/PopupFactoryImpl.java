@@ -26,6 +26,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -66,7 +67,7 @@ public class PopupFactoryImpl implements PopupFactory {
      */
     public PopupFactoryImpl(final JRootPane root,
                             final Supplier<List<Pair<String, String>>> leaderboardSupplier) {
-        this.root = root;
+        this.root = Objects.requireNonNull(root, "JPaneRoot for Popup");
         this.leaderboardSupplier = leaderboardSupplier;
         this.exit = new JButton("Exit");
     }
