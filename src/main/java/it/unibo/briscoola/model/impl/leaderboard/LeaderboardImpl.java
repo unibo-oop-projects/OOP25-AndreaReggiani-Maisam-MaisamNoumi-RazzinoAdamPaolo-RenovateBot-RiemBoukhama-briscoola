@@ -1,6 +1,5 @@
 package it.unibo.briscoola.model.impl.leaderboard;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.briscoola.model.api.leaderboard.Leaderboard;
 import it.unibo.briscoola.model.api.leaderboard.ScoreEntry;
 import it.unibo.briscoola.model.api.leaderboard.ScoreFileManager;
@@ -36,7 +35,6 @@ public class LeaderboardImpl implements Leaderboard {
      *
      * @param manager the manager used to retrieve stored leaderboard data
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "ScoreFileManager is a service dependency.")
     public LeaderboardImpl(final ScoreFileManager manager) {
         this.list = new ArrayList<>(manager.load());
         this.manager = manager;
