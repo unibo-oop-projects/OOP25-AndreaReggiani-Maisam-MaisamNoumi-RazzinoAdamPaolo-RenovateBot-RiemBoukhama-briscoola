@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.briscoola.controller.api.GameController;
 import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.model.api.game.GameModel;
@@ -44,7 +43,6 @@ public class GameControllerImpl implements GameController {
      * @param model the logical model of the game
      * @param view  the graphical interface of the game
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "View is a service dependency.")
     public GameControllerImpl(final GameModel model, final View view) {
         this.model = model;
         this.view = view;
