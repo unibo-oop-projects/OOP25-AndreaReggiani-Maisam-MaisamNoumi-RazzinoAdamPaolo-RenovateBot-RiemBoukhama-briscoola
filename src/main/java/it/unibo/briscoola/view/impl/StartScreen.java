@@ -1,12 +1,16 @@
 package it.unibo.briscoola.view.impl;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import java.awt.CardLayout;
 import java.awt.Color;
 import it.unibo.briscoola.model.api.attributes.Difficulty;
 import it.unibo.briscoola.view.impl.menu.DifficultySelectionPanel;
 import it.unibo.briscoola.view.impl.menu.MainMenu;
 import it.unibo.briscoola.view.impl.menu.PlayerNamePanel;
+import it.unibo.briscoola.view.impl.menu.RulesDialog;
+
 import java.awt.event.ActionListener;
 import java.util.function.BiConsumer;
 
@@ -51,7 +55,8 @@ public final class StartScreen extends JPanel {
 
         final JPanel mainMenu = new MainMenu(
             e -> cardLayout.show(this, NAME_SELECTION), 
-            onQuit
+            onQuit,
+            e -> new RulesDialog(SwingUtilities.getWindowAncestor(this))
         );
 
         final JPanel nameSelection = new PlayerNamePanel(

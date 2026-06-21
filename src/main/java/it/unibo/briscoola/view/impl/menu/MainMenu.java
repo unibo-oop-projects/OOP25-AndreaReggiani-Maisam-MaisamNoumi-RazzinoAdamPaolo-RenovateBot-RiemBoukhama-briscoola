@@ -29,14 +29,16 @@ public final class MainMenu extends JPanel {
     private static final int GRIDY0 = 0;
     private static final int GRIDY1 = 1;
     private static final int GRIDY2 = 2;
+    private static final int GRIDY3 = 3;
 
     /**
      * Constructs the MainMenu panel with listeners for navigation and control.
      *
      * @param choosePlay action listener to play
      * @param chooseExit action listener to quit
+     * @param chooseRules action listener to read rules
      */
-    public MainMenu(final ActionListener choosePlay, final ActionListener chooseExit) {
+    public MainMenu(final ActionListener choosePlay, final ActionListener chooseExit, final ActionListener chooseRules) {
 
         this.setLayout(new GridBagLayout());
         this.setOpaque(false);
@@ -61,12 +63,20 @@ public final class MainMenu extends JPanel {
         gbc.gridy = GRIDY1;
         add(btnPlay, gbc);
 
+        final JButton btnRules = new JButton("Rules");
+        btnRules.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        btnRules.addActionListener(chooseRules);
+
+        btnRules.setFocusPainted(false);
+        gbc.gridy = GRIDY2; 
+        add(btnRules, gbc);
+
         final JButton btnQuit = new JButton("Exit");
         btnQuit.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         btnQuit.addActionListener(chooseExit);
 
         btnQuit.setFocusPainted(false);
-        gbc.gridy = GRIDY2;
+        gbc.gridy = GRIDY3;
         add(btnQuit, gbc);
     }
 }
