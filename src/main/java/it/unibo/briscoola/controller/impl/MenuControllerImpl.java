@@ -2,9 +2,7 @@ package it.unibo.briscoola.controller.impl;
 
 import it.unibo.briscoola.controller.impl.utils.Pair;
 import it.unibo.briscoola.model.api.leaderboard.Leaderboard;
-import it.unibo.briscoola.model.api.leaderboard.ScoreFileManager;
 import it.unibo.briscoola.model.impl.leaderboard.LeaderboardImpl;
-import it.unibo.briscoola.model.impl.leaderboard.ScoreFileManagerImpl;
 import it.unibo.briscoola.view.api.View;
 import it.unibo.briscoola.view.impl.GameViewImpl;
 import it.unibo.briscoola.controller.api.GameController;

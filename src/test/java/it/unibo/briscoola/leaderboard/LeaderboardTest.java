@@ -4,7 +4,6 @@ import it.unibo.briscoola.model.api.leaderboard.Leaderboard;
 import it.unibo.briscoola.model.api.leaderboard.ScoreEntry;
 import it.unibo.briscoola.model.impl.leaderboard.LeaderboardImpl;
 import it.unibo.briscoola.model.impl.leaderboard.ScoreEntryImpl;
-import it.unibo.briscoola.model.impl.leaderboard.ScoreFileManagerImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

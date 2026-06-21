@@ -32,7 +32,8 @@ class ScoreFileManagerTest {
             new ScoreEntryImpl("Giacomo", MEDIUM_SCORE),
             new ScoreEntryImpl("Francesca", HIGH_SCORE),
             new ScoreEntryImpl("Marta", AVERAGE_SCORE)
-    ));private final ScoreFileManager manager = new ScoreFileManagerImpl(TESTING_FILE);
+    ));
+    private final ScoreFileManager manager = new ScoreFileManagerImpl(TESTING_FILE);
     private Leaderboard board;
 
     /**

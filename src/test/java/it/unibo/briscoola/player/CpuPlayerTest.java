@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,31 +26,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class CpuPlayerTest {
 
     private static final String PLAYER_NAME = "Test";
-    private Player cpu1;
-    private Player cpu2;
 
     @Disabled("init is a service method")
-    final void init() {
-        Stream.of(cpu1, cpu2).forEach(a -> {
-            if (a != null) {
-                a.receiveCard(new StandardCardImpl(CardValue.HORSE, CardSeed.STAFF));
-                a.receiveCard(new StandardCardImpl(CardValue.ACE, CardSeed.CUP));
-            }
-        });
+    final void init(final Player cpu) {
+        cpu.receiveCard(new StandardCardImpl(CardValue.HORSE, CardSeed.STAFF));
+        cpu.receiveCard(new StandardCardImpl(CardValue.ACE, CardSeed.CUP));
     }
 
     @Test
     void testCopy() {
-        cpu1 = new CpuPlayer(1, StrategyFactory.create(Difficulty.MEDIUM));
-        init();
-        final Player cpuCopy = cpu1.copy();
-        assertEquals(cpu1, cpuCopy);
-        assertEquals(cpu1.hashCode(), cpuCopy.hashCode());
+        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.MEDIUM));
+        init(cpu);
+        final Player cpuCopy = cpu.copy();
+        assertEquals(cpu, cpuCopy);
+        assertEquals(cpu.hashCode(), cpuCopy.hashCode());
     }
 
     @Test
     void easyStrategy() {
-        cpu1 = new CpuPlayer(1, StrategyFactory.create(Difficulty.EASY));
+        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.EASY));
         final Card fictionalCard = new StandardCardImpl(CardValue.FIVE, CardSeed.CUP);
         final RoundStateImpl fictionalState = new RoundStateImpl(
                 List.of(
@@ -60,14 +53,14 @@ class CpuPlayerTest {
                 CardSeed.COIN,
                 Optional.of(fictionalCard.getCardSeed())
         );
-        init();
+        init(cpu);
         assertEquals(new StandardCardImpl(CardValue.HORSE, CardSeed.STAFF),
-                cpu1.playCard(fictionalState));
+                cpu.playCard(fictionalState));
     }
 
     @Test
     void mediumStrategyNoBriscola() {
-        cpu1 = new CpuPlayer(1, StrategyFactory.create(Difficulty.MEDIUM));
+        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.MEDIUM));
         final Card fictionalCard = new StandardCardImpl(CardValue.THREE, CardSeed.COIN);
         final RoundStateImpl fictionalState = new RoundStateImpl(
                 List.of(
@@ -76,15 +69,15 @@ class CpuPlayerTest {
                 CardSeed.COIN,
                 Optional.of(fictionalCard.getCardSeed())
         );
-        assertThrows(IllegalStateException.class, () -> cpu1.playCard(fictionalState));
-        init();
+        assertThrows(IllegalStateException.class, () -> cpu.playCard(fictionalState));
+        init(cpu);
         assertEquals(new StandardCardImpl(CardValue.HORSE, CardSeed.STAFF),
-                cpu1.playCard(fictionalState));
+                cpu.playCard(fictionalState));
     }
 
     @Test
     void mediumStrategyWithBriscola() {
-        cpu1 = new CpuPlayer(1, StrategyFactory.create(Difficulty.MEDIUM));
+        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.MEDIUM));
         final Card fictionalCard = new StandardCardImpl(CardValue.THREE, CardSeed.STAFF);
         final RoundStateImpl fictionalState = new RoundStateImpl(
                 List.of(
@@ -93,14 +86,14 @@ class CpuPlayerTest {
                 CardSeed.CUP,
                 Optional.of(fictionalCard.getCardSeed())
         );
-        init();
+        init(cpu);
         assertEquals(new StandardCardImpl(CardValue.ACE, CardSeed.CUP),
-                cpu1.playCard(fictionalState));
+                cpu.playCard(fictionalState));
     }
 
     @Test
     void hardStrategy() {
-        cpu1 = new CpuPlayer(1, StrategyFactory.create(Difficulty.HARD));
+        final Player cpu = new CpuPlayer(1, StrategyFactory.create(Difficulty.HARD));
         final Card fictionalCard1 = new StandardCardImpl(CardValue.THREE, CardSeed.COIN);
         final Card fictionalCard2 = new StandardCardImpl(CardValue.ACE, CardSeed.SWORD);
         final Card fictionalCard3 = new StandardCardImpl(CardValue.TWO, CardSeed.COIN);
@@ -115,9 +108,9 @@ class CpuPlayerTest {
                 CardSeed.STAFF,
                 Optional.of(fictionalCard1.getCardSeed())
         );
-        assertThrows(IllegalStateException.class, () -> cpu1.playCard(fictionalState));
-        init();
+        assertThrows(IllegalStateException.class, () -> cpu.playCard(fictionalState));
+        init(cpu);
         assertEquals(new StandardCardImpl(CardValue.HORSE, CardSeed.STAFF),
-                cpu1.playCard(fictionalState));
+                cpu.playCard(fictionalState));
     }
 }
