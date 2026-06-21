@@ -9,8 +9,6 @@ import it.unibo.briscoola.model.impl.leaderboard.ScoreFileManagerImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,7 +35,6 @@ class ScoreFileManagerTest {
     ));
     private final ScoreFileManager manager = new ScoreFileManagerImpl(TESTING_FILE);
     private Leaderboard board;
-    private final Logger logger = LoggerFactory.getLogger(ScoreFileManagerTest.class);
 
     /**
      * Creates a fresh leaderboard instance before each test.

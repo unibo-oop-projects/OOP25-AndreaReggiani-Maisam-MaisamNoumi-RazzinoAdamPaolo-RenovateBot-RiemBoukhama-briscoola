@@ -29,8 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Test class made to verify the correct functioning of the {@link RoundManagerImpl} class.
  */
-public class RoundManagerTest {
-    private static final int secondPlayerIndex = 1;
+class RoundManagerTest {
+    private static final int SECOND_PLAYER_INDEX = 1;
     private int ids = 1;
     private List<Player> playerList;
     private RoundManager manager;
@@ -39,11 +39,11 @@ public class RoundManagerTest {
     final void init() {
         this.playerList = new ArrayList<>(
                 List.of(
-                        new CpuPlayer(ids++, StrategyFactory.create(Difficulty.EASY)),
-                        new CpuPlayer(ids++, StrategyFactory.create(Difficulty.EASY))
+                        new CpuPlayer(1, StrategyFactory.create(Difficulty.EASY)),
+                        new CpuPlayer(2, StrategyFactory.create(Difficulty.EASY))
                 )
         );
-
+        this.ids = 3;
         this.playerList.forEach(player ->
                 player.receiveCard(new StandardCardImpl(CardValue.ACE, CardSeed.CUP)));
         this.playerList.getLast().receiveCard(new StandardCardImpl(CardValue.JACK, CardSeed.SWORD));
@@ -70,8 +70,10 @@ public class RoundManagerTest {
     @Test
     void playingCheck() {
         this.manager.startRound(this.playerList);
+        final int temporaryId = this.ids;
+        this.ids++;
         assertThrows(IllegalArgumentException.class, () -> this.manager.playTurn(
-                new CpuPlayer(ids++, StrategyFactory.create(Difficulty.EASY)),
+                new CpuPlayer(temporaryId, StrategyFactory.create(Difficulty.EASY)),
                 new StandardCardImpl(CardValue.FIVE, CardSeed.CUP)));
         assertEquals(this.playerList.getFirst(), this.manager.getCurrentPlayer());
         assertThrows(IllegalArgumentException.class, () -> this.manager.playTurn(
@@ -87,16 +89,16 @@ public class RoundManagerTest {
                 List.of(new RoundPlay(this.playerList.getFirst(), cardPlayed)),
                 CardSeed.COIN,
                 Optional.of(cardPlayed.getCardSeed())), this.manager.getRoundState());
-        assertEquals(this.playerList.get(secondPlayerIndex), this.manager.getCurrentPlayer());
-        final Card secondCardPlayed = this.playerList.get(secondPlayerIndex)
+        assertEquals(this.playerList.get(SECOND_PLAYER_INDEX), this.manager.getCurrentPlayer());
+        final Card secondCardPlayed = this.playerList.get(SECOND_PLAYER_INDEX)
                         .playCard(this.manager.getRoundState());
         assertDoesNotThrow(() -> this.manager.playTurn(
-                this.playerList.get(secondPlayerIndex),
+                this.playerList.get(SECOND_PLAYER_INDEX),
                 secondCardPlayed
         ));
         assertEquals(new RoundStateImpl(
                 List.of(new RoundPlay(this.playerList.getFirst(), cardPlayed),
-                        new RoundPlay(this.playerList.get(secondPlayerIndex), secondCardPlayed)),
+                        new RoundPlay(this.playerList.get(SECOND_PLAYER_INDEX), secondCardPlayed)),
                 CardSeed.COIN,
                 Optional.of(cardPlayed.getCardSeed())
                 ), this.manager.getRoundState());
