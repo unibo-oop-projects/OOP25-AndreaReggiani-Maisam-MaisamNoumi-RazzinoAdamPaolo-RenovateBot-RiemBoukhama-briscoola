@@ -27,7 +27,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.function.Supplier;
 
