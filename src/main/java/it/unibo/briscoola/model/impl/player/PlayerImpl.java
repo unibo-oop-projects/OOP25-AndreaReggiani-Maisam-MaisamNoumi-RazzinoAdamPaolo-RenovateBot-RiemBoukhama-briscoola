@@ -56,15 +56,7 @@ public class PlayerImpl implements Player {
     public Card playCard(final RoundStateImpl state) {
         return this.hand.removeFirst();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Card playCard(final int index) {
-        return this.hand.remove(index);
-    }
-
+    
     /**
      * {@inheritDoc}
      */
