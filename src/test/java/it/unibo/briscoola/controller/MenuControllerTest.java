@@ -1,14 +1,17 @@
 package it.unibo.briscoola.controller;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import it.unibo.briscoola.controller.api.GameController;
 import it.unibo.briscoola.controller.api.MenuController;
 import it.unibo.briscoola.controller.impl.MenuControllerImpl;
+import it.unibo.briscoola.controller.impl.utils.Pair;
 import it.unibo.briscoola.model.api.attributes.Difficulty;
-import it.unibo.briscoola.model.api.card.Card;
 import it.unibo.briscoola.view.api.CardView;
 import it.unibo.briscoola.view.api.View;
 import it.unibo.briscoola.view.api.popup.Popups;
@@ -28,20 +31,11 @@ class MenuControllerTest {
 
         this.testView = new View() {
 
-            @Override 
-            public void setMenuController(final MenuController menuControllerTest) { }
-
-            @Override
-            public void setGameController(final GameController gameControllerTest) { }
-
             @Override
             public void start() { }
 
             @Override
             public void initGame() { }
-
-            @Override
-            public void updateHand(final int playerIdTest, final List<Card> handCardsTest) { }
 
             @Override
             public void updatePile(final int cardsCountTest, final boolean playerTest) { }
@@ -63,6 +57,15 @@ class MenuControllerTest {
             public List<CardView> getPlayerHandCards() {
                 return List.of();
             }
+
+            @Override
+            public void setOnGameStartListener(final BiConsumer<String, Difficulty> onStartGame) { }
+
+            @Override
+            public void setOnCardPlayedListener(final Consumer<Integer> onCardPlayed) { }
+
+            @Override
+            public void updateHand(final int playerID, final List<Pair<String, String>> handCards) { }
         };
         this.testMenuController = new MenuControllerImpl();
     }
@@ -77,7 +80,7 @@ class MenuControllerTest {
     @Test
     void testStartGameWithNullDifficulty() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.testMenuController.startGame("PIEROANGELO", null, this.testView);
+            this.testMenuController.startGame("ANGELO", null, this.testView);
         });
     }
 }
