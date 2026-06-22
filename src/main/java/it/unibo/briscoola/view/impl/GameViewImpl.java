@@ -282,6 +282,16 @@ public final class GameViewImpl extends JFrame implements View {
      */
     @Override
     public void initGame() {
+        /*
+         * including this calls to update table.
+         * without this the table, if the game will be stopped, 
+         * and restarted with "Esc" -> "Menu" -> "Play" 
+         * it would be graphicaly frozen on the previous match.
+         * Now instead it will be all restarted.
+         */
+        updateTable(null, null, null, null, NUMBER_OF_CARDS);
+        updatePile(0, true);
+        updatePile(0, false);
         cardLayout.show(container, GAME_ID);
     }
 
