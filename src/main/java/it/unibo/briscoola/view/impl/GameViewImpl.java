@@ -86,8 +86,9 @@ public final class GameViewImpl extends JFrame implements View {
     private final CardViewImpl[] playerHandCards = new CardViewImpl[NUMBER_OF_CARDS];
     private final CardViewImpl[] cpuHandCards = new CardViewImpl[NUMBER_OF_CARDS];
 
-    private BiConsumer<String, Difficulty> onGameStartListener;
-    private Consumer<Integer> onCardPlayedListener;
+    private transient BiConsumer<String, Difficulty> onGameStartListener;
+    private transient Consumer<Integer> onCardPlayedListener;
+
     private final transient MenuController menuController;
     private StartScreen startScreen;
 

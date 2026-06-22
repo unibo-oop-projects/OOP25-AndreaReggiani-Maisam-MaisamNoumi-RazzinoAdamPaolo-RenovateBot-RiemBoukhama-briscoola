@@ -221,6 +221,6 @@ public class GameControllerImpl implements GameController {
             card.getCardSeed().name(),
             card.getCardValue().name()
         ))
-        .toList();  
+        .toList();
     }
 }
